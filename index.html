@@ -18,8 +18,8 @@
       --acs-glass: rgba(255, 250, 241, 0.58);
       --acs-shadow: 0 34px 90px rgba(36, 29, 22, 0.10);
       --acs-ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --acs-x: 86%;
-      --acs-y: 18%;
+      --acs-x: 78%;
+      --acs-y: 24%;
     }
 
     * { box-sizing: border-box; }
@@ -42,8 +42,8 @@
       overflow: hidden;
       isolation: isolate;
       background:
-        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 250, 241, 0.96), transparent 18rem),
-        radial-gradient(circle at 18% 20%, rgba(255, 250, 241, 0.82), transparent 31rem),
+        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.84) 11rem, transparent 25rem),
+        radial-gradient(circle at 18% 20%, rgba(255, 250, 241, 0.9), transparent 31rem),
         linear-gradient(135deg, var(--acs-paper), var(--acs-paper-2));
     }
 
@@ -111,25 +111,33 @@
       inset: 0;
       z-index: -1;
       pointer-events: none;
-      opacity: 0.32;
-      background: linear-gradient(102deg, transparent 0 42%, rgba(255, 250, 241, 0.95) 50%, transparent 58% 100%);
+      opacity: 0.46;
+      background: linear-gradient(102deg, transparent 0 40%, rgba(255, 255, 255, 0.98) 50%, transparent 61% 100%);
       transform: translateX(-55%);
       animation: acs-sweep 7.5s var(--acs-ease) infinite alternate;
     }
 
     .acs-header {
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 50%;
       z-index: 10;
       display: grid;
       grid-template-columns: minmax(10rem, 16rem) 1fr minmax(18rem, 28rem);
       align-items: start;
       gap: clamp(1rem, 2.2vw, 2rem);
       width: min(100%, 1540px);
-      margin: 0 auto;
+      transform: translateX(-50%) translateY(-0.65rem);
       padding: clamp(1.25rem, 2.4vw, 2.35rem) clamp(1rem, 4.2vw, 4.9rem);
       opacity: 0;
-      transform: translateY(-0.65rem);
-      animation: acs-reveal-down 0.9s var(--acs-ease) 0.72s forwards;
+      pointer-events: none;
+      transition: opacity 950ms var(--acs-ease), transform 950ms var(--acs-ease);
+    }
+
+    .acs-hero.is-ready .acs-header {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
     }
 
     .acs-logo-link {
@@ -277,17 +285,17 @@
       position: relative;
       z-index: 2;
       display: grid;
-      align-items: end;
+      align-items: center;
       width: min(100%, 1540px);
-      min-height: calc(100svh - 7.3rem);
+      min-height: 100svh;
       margin: 0 auto;
-      padding: clamp(8rem, 16vw, 13.5rem) clamp(1rem, 4.2vw, 4.9rem) clamp(3rem, 6vw, 5rem);
+      padding: clamp(6rem, 10vw, 9rem) clamp(0.7rem, 2.8vw, 3.1rem) clamp(6rem, 10vw, 9rem);
     }
 
     .acs-copy {
       display: grid;
-      justify-items: start;
-      width: min(100%, 92rem);
+      justify-items: stretch;
+      width: 100%;
       text-align: left;
     }
 
@@ -296,15 +304,16 @@
     }
 
     .acs-title {
-      max-width: 14.7ch;
-      min-height: 2.55em;
+      width: 100%;
+      max-width: none;
+      min-height: 2.32em;
       margin: 0;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(4.7rem, 11.2vw, 14rem);
+      font-size: clamp(5.1rem, 13.15vw, 16.8rem);
       font-weight: 400;
-      line-height: 0.9;
-      letter-spacing: -0.064em;
+      line-height: 0.84;
+      letter-spacing: -0.071em;
       text-wrap: balance;
     }
 
@@ -406,7 +415,14 @@
       text-transform: uppercase;
       opacity: 0;
       transform: translateY(0.7rem);
-      animation: acs-reveal-up 0.85s var(--acs-ease) 1.56s forwards;
+      pointer-events: none;
+      transition: opacity 900ms var(--acs-ease), transform 900ms var(--acs-ease);
+    }
+
+    .acs-hero.is-ready .acs-bottom {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     .acs-bottom-line {
@@ -443,6 +459,66 @@
       background: rgba(255, 250, 241, 0.82);
       transform: translateY(-2px);
       outline: none;
+    }
+
+
+    .acs-curve-flow {
+      position: absolute;
+      left: 50%;
+      bottom: -22vh;
+      z-index: 1;
+      width: 150vw;
+      height: 46vh;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-50%) translateY(38%);
+      transition: opacity 1100ms var(--acs-ease), transform 1400ms var(--acs-ease);
+    }
+
+    .acs-hero.is-ready .acs-curve-flow {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .acs-curve-flow span {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      transform: translateX(-50%);
+      background: var(--curve-color);
+      box-shadow: 0 -1px 0 rgba(17, 16, 14, 0.06), 0 -38px 120px rgba(255, 250, 241, 0.55);
+    }
+
+    .acs-curve-flow span:nth-child(1) {
+      --curve-color: rgba(255, 250, 241, 0.52);
+      bottom: 19vh;
+      width: 132vw;
+      height: 25vh;
+      transform: translateX(-50%) rotate(-1.8deg);
+    }
+
+    .acs-curve-flow span:nth-child(2) {
+      --curve-color: rgba(244, 239, 230, 0.78);
+      bottom: 9vh;
+      width: 142vw;
+      height: 31vh;
+      transform: translateX(-50%) rotate(1.2deg);
+    }
+
+    .acs-curve-flow span:nth-child(3) {
+      --curve-color: #fffaf1;
+      bottom: -1vh;
+      width: 154vw;
+      height: 35vh;
+    }
+
+    .acs-next-flow {
+      min-height: 42vh;
+      background: #fffaf1;
+      position: relative;
     }
 
     .acs-mobile-panel {
@@ -518,7 +594,7 @@
     @keyframes acs-line-open { to { transform: scaleX(1); } }
 
     @keyframes acs-sweep {
-      to { transform: translateX(42%); opacity: 0.42; }
+      to { transform: translateX(42%); opacity: 0.58; }
     }
 
     @keyframes acs-reveal-down {
@@ -553,13 +629,14 @@
       .acs-logo-link { width: min(10.8rem, 42vw); }
       .acs-socials { display: none; }
       .acs-hero-inner {
-        min-height: calc(100svh - 5rem);
-        padding: 8rem 1rem 5.6rem;
+        min-height: 100svh;
+        padding: 6.2rem 0.75rem 5.4rem;
       }
       .acs-title {
-        max-width: 12.4ch;
+        max-width: none;
         min-height: 3.1em;
-        font-size: clamp(3.5rem, 17vw, 6.2rem);
+        font-size: clamp(3.65rem, 18vw, 6.8rem);
+        line-height: 0.86;
       }
       .acs-bottom {
         left: 1rem;
@@ -623,16 +700,24 @@
       </div>
     </section>
 
+    <div class="acs-curve-flow" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
     <div class="acs-bottom" aria-hidden="true">
       <span class="acs-bottom-line"></span>
       <a class="acs-scroll" href="#tablofotozas" aria-label="Ugrás a következő szekcióra"></a>
     </div>
 
-    <div id="tablofotozas" class="acs-section-anchor"></div>
+  </main>
+
+  <section class="acs-next-flow" id="tablofotozas" aria-hidden="true">
     <div id="szalagavato" class="acs-section-anchor"></div>
     <div id="selfiegep" class="acs-section-anchor"></div>
     <div id="ajanlatkeres" class="acs-section-anchor"></div>
-  </main>
+  </section>
 
   <div class="acs-mobile-panel" id="acsMobilePanel" aria-hidden="true">
     <button class="acs-mobile-close" type="button" aria-label="Menü bezárása">×</button>
@@ -659,13 +744,29 @@
       const close = document.querySelector(".acs-mobile-close");
       const panelLinks = document.querySelectorAll(".acs-mobile-panel a");
       const title = document.querySelector(".acs-title");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const revealInterface = () => {
+        if (root) root.classList.add("is-ready");
+      };
 
       const typeTitle = () => {
-        if (!title) return;
+        if (!title) {
+          revealInterface();
+          return;
+        }
         const fullText = title.dataset.text || title.textContent.trim();
         const letters = Array.from(fullText);
-        const duration = 7600;
-        const startDelay = 900;
+        const duration = 7800;
+        const startDelay = 420;
+
+        if (prefersReducedMotion) {
+          title.textContent = fullText;
+          title.classList.add("is-complete");
+          revealInterface();
+          return;
+        }
+
         title.textContent = "";
         title.classList.add("is-typing");
 
@@ -682,6 +783,7 @@
               title.textContent = fullText;
               title.classList.remove("is-typing");
               title.classList.add("is-complete");
+              window.setTimeout(revealInterface, 280);
             }
           };
           requestAnimationFrame(tick);
