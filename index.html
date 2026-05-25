@@ -136,14 +136,14 @@
 
     .acs-title {
       width: min(100%, 14.8ch);
-      min-height: 2.35em;
+      min-height: 2.78em;
       margin: 0 auto;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(5.1rem, 12.4vw, 15.8rem);
+      font-size: clamp(4.9rem, 11.85vw, 15rem);
       font-weight: 400;
-      line-height: 0.86;
-      letter-spacing: -0.071em;
+      line-height: 1.02;
+      letter-spacing: -0.068em;
       text-align: center;
       text-wrap: balance;
     }
@@ -162,53 +162,70 @@
     .acs-title.is-complete::after { opacity: 0; }
 
 
-    .acs-premium-line {
+    .acs-gold-ribbon {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: calc(50% + min(24vh, 14rem));
       z-index: 3;
-      width: min(94vw, 92rem);
-      height: min(62vh, 37rem);
+      width: min(62vw, 45rem);
+      min-width: 18rem;
       pointer-events: none;
       opacity: 0;
-      transform: translate(-50%, -50%) scale(0.985);
-      transition: opacity 700ms var(--acs-ease), transform 900ms var(--acs-ease);
+      transform: translate(-50%, 1.1rem) scaleX(0.78);
+      transform-origin: center;
+      transition: opacity 850ms var(--acs-ease), transform 1200ms var(--acs-ease);
     }
 
-    .acs-page.is-ready .acs-premium-line {
+    .acs-page.is-ready .acs-gold-ribbon {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, 0) scaleX(1);
     }
 
-    .acs-premium-line svg {
+    .acs-gold-ribbon svg {
       display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
       overflow: visible;
+      filter: drop-shadow(0 1.5rem 2.6rem rgba(139, 96, 38, 0.18));
     }
 
-    .acs-premium-line path {
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-      filter: drop-shadow(0 0 0.72rem rgba(198, 145, 86, 0.28));
+    .acs-gold-ribbon .acs-ribbon-part {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
     }
 
-    .acs-premium-line .acs-line-main {
-      stroke: url(#acs-line-gradient);
-      stroke-width: 1.15;
+    .acs-page.is-ready .acs-gold-ribbon .acs-ribbon-band {
+      animation: acs-ribbon-band 1.25s var(--acs-ease) 0.18s forwards;
     }
 
-    .acs-premium-line .acs-line-glow {
-      stroke: rgba(255, 236, 202, 0.42);
-      stroke-width: 4.8;
-      filter: blur(3px);
+    .acs-page.is-ready .acs-gold-ribbon .acs-ribbon-knot {
+      animation: acs-ribbon-pop 0.9s var(--acs-ease) 0.78s forwards;
     }
 
-    .acs-page.is-ready .acs-premium-line path {
-      animation: acs-fire-line 2.65s var(--acs-ease) 0.18s forwards;
+    .acs-page.is-ready .acs-gold-ribbon .acs-ribbon-loop-left {
+      animation: acs-ribbon-loop-left 1.05s var(--acs-ease) 0.96s forwards;
+    }
+
+    .acs-page.is-ready .acs-gold-ribbon .acs-ribbon-loop-right {
+      animation: acs-ribbon-loop-right 1.05s var(--acs-ease) 1.02s forwards;
+    }
+
+    .acs-page.is-ready .acs-gold-ribbon .acs-ribbon-tail-left {
+      animation: acs-ribbon-tail-left 1s var(--acs-ease) 1.12s forwards;
+    }
+
+    .acs-page.is-ready .acs-gold-ribbon .acs-ribbon-tail-right {
+      animation: acs-ribbon-tail-right 1s var(--acs-ease) 1.16s forwards;
+    }
+
+    .acs-ribbon-shine {
+      opacity: 0;
+      transform: translateX(-70%);
+    }
+
+    .acs-page.is-ready .acs-ribbon-shine {
+      animation: acs-ribbon-shine 2.2s ease-in-out 1.55s forwards;
     }
 
     .acs-scroll-cue {
@@ -596,11 +613,41 @@
       46%, 100% { opacity: 0; }
     }
 
-    @keyframes acs-fire-line {
-      0% { stroke-dashoffset: 1; opacity: 0; }
-      8% { opacity: 1; }
-      78% { stroke-dashoffset: 0; opacity: 1; }
-      100% { stroke-dashoffset: 0; opacity: 0.72; }
+    @keyframes acs-ribbon-band {
+      from { opacity: 0; transform: scaleX(0.18); }
+      to { opacity: 1; transform: scaleX(1); }
+    }
+
+    @keyframes acs-ribbon-pop {
+      0% { opacity: 0; transform: scale(0.72); }
+      70% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes acs-ribbon-loop-left {
+      from { opacity: 0; transform: translateX(3rem) scale(0.86) rotate(4deg); }
+      to { opacity: 1; transform: translateX(0) scale(1) rotate(0); }
+    }
+
+    @keyframes acs-ribbon-loop-right {
+      from { opacity: 0; transform: translateX(-3rem) scale(0.86) rotate(-4deg); }
+      to { opacity: 1; transform: translateX(0) scale(1) rotate(0); }
+    }
+
+    @keyframes acs-ribbon-tail-left {
+      from { opacity: 0; transform: translate(2rem, -1rem) scale(0.88) rotate(7deg); }
+      to { opacity: 1; transform: translate(0) scale(1) rotate(0); }
+    }
+
+    @keyframes acs-ribbon-tail-right {
+      from { opacity: 0; transform: translate(-2rem, -1rem) scale(0.88) rotate(-7deg); }
+      to { opacity: 1; transform: translate(0) scale(1) rotate(0); }
+    }
+
+    @keyframes acs-ribbon-shine {
+      0% { opacity: 0; transform: translateX(-70%) skewX(-18deg); }
+      18% { opacity: 0.72; }
+      100% { opacity: 0; transform: translateX(420%) skewX(-18deg); }
     }
 
     @keyframes acs-arrow {
@@ -618,9 +665,9 @@
         line-height: 0.88;
       }
 
-      .acs-premium-line {
-        width: 118vw;
-        height: 48vh;
+      .acs-gold-ribbon {
+        top: calc(50% + min(25vh, 12rem));
+        width: min(88vw, 28rem);
       }
 
       .acs-center-layout {
@@ -680,19 +727,70 @@
         <h1 class="acs-title" data-text="Megörökítjük a végzős év legjobb pillanatait.">Megörökítjük a végzős év legjobb pillanatait.</h1>
       </div>
 
-      <div class="acs-premium-line" aria-hidden="true">
-        <svg viewBox="0 0 1200 520" preserveAspectRatio="none">
+      <div class="acs-gold-ribbon" aria-hidden="true">
+        <svg viewBox="0 0 900 250" role="img">
           <defs>
-            <linearGradient id="acs-line-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#9f7752" stop-opacity="0" />
-              <stop offset="18%" stop-color="#c69562" stop-opacity="0.72" />
-              <stop offset="50%" stop-color="#f2d6a4" stop-opacity="0.95" />
-              <stop offset="82%" stop-color="#c28f5b" stop-opacity="0.72" />
-              <stop offset="100%" stop-color="#9f7752" stop-opacity="0" />
+            <linearGradient id="acs-gold-band" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#9d7132" />
+              <stop offset="18%" stop-color="#f1d778" />
+              <stop offset="38%" stop-color="#b78532" />
+              <stop offset="52%" stop-color="#fff1a8" />
+              <stop offset="72%" stop-color="#c99a3d" />
+              <stop offset="100%" stop-color="#8e642d" />
+            </linearGradient>
+            <linearGradient id="acs-gold-fold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fff2a8" />
+              <stop offset="34%" stop-color="#d2a746" />
+              <stop offset="68%" stop-color="#8f6129" />
+              <stop offset="100%" stop-color="#f4db75" />
+            </linearGradient>
+            <radialGradient id="acs-gold-knot" cx="44%" cy="34%" r="70%">
+              <stop offset="0%" stop-color="#fff5b7" />
+              <stop offset="42%" stop-color="#d5ab45" />
+              <stop offset="100%" stop-color="#835724" />
+            </radialGradient>
+            <linearGradient id="acs-gold-shine" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+              <stop offset="48%" stop-color="#fff9c9" stop-opacity="0.78" />
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
             </linearGradient>
           </defs>
-          <path class="acs-line-glow" pathLength="1" d="M 118 462 C 156 232 297 80 505 74 C 734 67 930 171 982 315 C 1024 431 954 488 868 503" />
-          <path class="acs-line-main" pathLength="1" d="M 118 462 C 156 232 297 80 505 74 C 734 67 930 171 982 315 C 1024 431 954 488 868 503" />
+
+          <g class="acs-ribbon-part acs-ribbon-band">
+            <path d="M74 92 H826 V126 H74 Z" fill="url(#acs-gold-band)" />
+            <path d="M74 92 H826" stroke="#fff4a8" stroke-opacity="0.45" stroke-width="2" />
+            <path d="M74 126 H826" stroke="#6f491e" stroke-opacity="0.22" stroke-width="2" />
+          </g>
+
+          <g class="acs-ribbon-part acs-ribbon-loop-left">
+            <path d="M440 104 C358 44 253 44 226 102 C258 150 356 151 440 116 Z" fill="url(#acs-gold-fold)" />
+            <path d="M432 108 C352 80 286 82 230 103" fill="none" stroke="#fff4b4" stroke-opacity="0.45" stroke-width="2" />
+            <path d="M438 116 C342 126 278 122 226 103" fill="none" stroke="#6d471c" stroke-opacity="0.24" stroke-width="2" />
+          </g>
+
+          <g class="acs-ribbon-part acs-ribbon-loop-right">
+            <path d="M460 104 C542 44 647 44 674 102 C642 150 544 151 460 116 Z" fill="url(#acs-gold-fold)" />
+            <path d="M468 108 C548 80 614 82 670 103" fill="none" stroke="#fff4b4" stroke-opacity="0.45" stroke-width="2" />
+            <path d="M462 116 C558 126 622 122 674 103" fill="none" stroke="#6d471c" stroke-opacity="0.24" stroke-width="2" />
+          </g>
+
+          <g class="acs-ribbon-part acs-ribbon-tail-left">
+            <path d="M418 125 C382 152 350 184 314 218 L399 203 L468 128 Z" fill="url(#acs-gold-fold)" />
+            <path d="M394 156 C378 174 359 192 338 210" fill="none" stroke="#fff4b4" stroke-opacity="0.36" stroke-width="2" />
+          </g>
+
+          <g class="acs-ribbon-part acs-ribbon-tail-right">
+            <path d="M482 125 C518 152 550 184 586 218 L501 203 L432 128 Z" fill="url(#acs-gold-fold)" />
+            <path d="M506 156 C522 174 541 192 562 210" fill="none" stroke="#fff4b4" stroke-opacity="0.36" stroke-width="2" />
+          </g>
+
+          <g class="acs-ribbon-part acs-ribbon-knot">
+            <path d="M404 92 C430 78 470 78 496 92 C506 108 506 123 496 138 C470 152 430 152 404 138 C394 123 394 108 404 92 Z" fill="url(#acs-gold-knot)" />
+            <path d="M418 101 C439 94 461 94 482 101" fill="none" stroke="#fff6ba" stroke-opacity="0.55" stroke-width="3" />
+            <path d="M415 133 C439 141 462 141 486 133" fill="none" stroke="#6d471c" stroke-opacity="0.25" stroke-width="3" />
+          </g>
+
+          <rect class="acs-ribbon-shine" x="60" y="72" width="180" height="92" fill="url(#acs-gold-shine)" transform="skewX(-18)" />
         </svg>
       </div>
 
