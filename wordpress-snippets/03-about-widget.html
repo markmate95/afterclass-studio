@@ -1,0 +1,226 @@
+<!-- AfterClass Studio - ABOUT HTML widget
+Paste this into the third Elementor HTML widget/container, directly after the Navbar section.
+This snippet includes the JavaScript that connects the three snippets together. -->
+<section class="acs-about-scene" id="bemutatkozas" aria-label="AfterClass Studio bemutatkozás">
+    <div class="acs-noise" aria-hidden="true"></div>
+    <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-section-curve-reveal" aria-hidden="true"></div>
+    <div class="acs-about-wrap">
+      <div class="acs-about-copy">
+        <p>Az AfterClass Studio tablófotózásra, szalagavató filmek és fényképek készítésére specializálódott kreatív csapat.</p>
+        <p>Célunk, hogy a végeredmény ne egy kötelező iskolai fotózás legyen, hanem valódi emlékek és természetes portrék gyűjteménye — olyan képek és videók, amelyeket évekkel később is jó lesz újranézni.</p>
+      </div>
+      <div class="acs-about-media">
+        <div class="acs-about-frame">
+          <img class="acs-photo-backdrop" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/szalagavato-fotozas.png" alt="" aria-hidden="true">
+          <img class="acs-about-photo" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/szalagavato-fotozas.png" alt="Szalagavató fotózás">
+        </div>
+        <span class="acs-about-orbit" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const intro = document.querySelector(".acs-intro-scene");
+      const menuScene = document.querySelector(".acs-menu-scene");
+      const aboutScene = document.querySelector(".acs-about-scene");
+      const scrollGate = document.querySelector(".acs-scroll-gate");
+      const menuGate = document.querySelector(".acs-menu-gate");
+      const aboutFrame = document.querySelector(".acs-about-frame");
+      const title = document.querySelector(".acs-title");
+      const body = document.body;
+      const toggle = document.querySelector(".acs-menu-toggle");
+      const panel = document.querySelector(".acs-mobile-panel");
+      const close = document.querySelector(".acs-mobile-close");
+      const panelLinks = document.querySelectorAll(".acs-mobile-panel a");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let isReady = false;
+      let introGateProgress = 0;
+      let menuGateProgress = 0;
+      let gateCooldown = false;
+      let touchStartY = 0;
+
+      const setReady = () => {
+        isReady = true;
+        document.body.classList.add("acs-intro-ready");
+      };
+
+      const typeTitle = () => {
+        if (!title) {
+          setReady();
+          return;
+        }
+
+        const fullText = title.dataset.text || title.textContent.trim();
+        const letters = Array.from(fullText);
+        const duration = 7800;
+        const startDelay = 420;
+
+        if (prefersReducedMotion) {
+          title.textContent = fullText;
+          title.classList.add("is-complete");
+          setReady();
+          return;
+        }
+
+        title.textContent = "";
+        title.classList.add("is-typing");
+
+        window.setTimeout(() => {
+          const start = performance.now();
+          const tick = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 2.4);
+            const count = Math.floor(eased * letters.length);
+            title.textContent = letters.slice(0, count).join("");
+
+            if (progress < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              title.textContent = fullText;
+              title.classList.remove("is-typing");
+              title.classList.add("is-complete");
+              window.setTimeout(setReady, 260);
+            }
+          };
+          requestAnimationFrame(tick);
+        }, startDelay);
+      };
+
+
+      const scrollToScene = (target) => {
+        target?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+      };
+
+      const armGate = (gate) => {
+        gate?.classList.add("is-armed");
+        window.setTimeout(() => gate?.classList.remove("is-armed"), 520);
+      };
+
+      const isSceneActive = (scene, threshold = 0.58) => {
+        if (!scene) return false;
+        const bounds = scene.getBoundingClientRect();
+        return bounds.top >= -12 && bounds.bottom > window.innerHeight * threshold;
+      };
+
+      const handleGatedScroll = (event, deltaY) => {
+        if (!isReady || deltaY <= 0) return;
+
+        const inIntro = isSceneActive(intro, 0.58);
+        const inMenu = isSceneActive(menuScene, 0.58);
+        if (!inIntro && !inMenu) return;
+
+        event.preventDefault();
+        if (gateCooldown) return;
+        gateCooldown = true;
+        window.setTimeout(() => { gateCooldown = false; }, 470);
+
+        if (inIntro) {
+          if (introGateProgress < 1) {
+            introGateProgress += 1;
+            armGate(scrollGate);
+            return;
+          }
+          introGateProgress = 0;
+          scrollToScene(menuScene);
+          return;
+        }
+
+        if (inMenu) {
+          if (menuGateProgress < 1) {
+            menuGateProgress += 1;
+            armGate(menuGate);
+            return;
+          }
+          menuGateProgress = 0;
+          scrollToScene(aboutScene);
+        }
+      };
+
+      window.addEventListener("wheel", (event) => handleGatedScroll(event, event.deltaY), { passive: false });
+      window.addEventListener("touchstart", (event) => {
+        touchStartY = event.touches[0]?.clientY || 0;
+      }, { passive: true });
+      window.addEventListener("touchmove", (event) => {
+        const currentY = event.touches[0]?.clientY || 0;
+        handleGatedScroll(event, touchStartY - currentY);
+      }, { passive: false });
+
+      const setMenuState = (isOpen) => {
+        panel.classList.toggle("is-open", isOpen);
+        panel.setAttribute("aria-hidden", String(!isOpen));
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        body.classList.toggle("acs-menu-open", isOpen);
+      };
+
+      const moveSpotlight = (event) => {
+        const target = event.currentTarget;
+        const rect = target.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        target.style.setProperty("--acs-x", `${x.toFixed(2)}%`);
+        target.style.setProperty("--acs-y", `${y.toFixed(2)}%`);
+      };
+
+      if (window.matchMedia("(pointer: fine)").matches) {
+        intro?.addEventListener("pointermove", moveSpotlight);
+        menuScene?.addEventListener("pointermove", moveSpotlight);
+        aboutScene?.addEventListener("pointermove", moveSpotlight);
+      }
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle("is-visible", entry.isIntersecting);
+          });
+        }, { threshold: 0.32 });
+        if (menuScene) observer.observe(menuScene);
+        if (aboutScene) observer.observe(aboutScene);
+      } else {
+        menuScene?.classList.add("is-visible");
+        aboutScene?.classList.add("is-visible");
+      }
+
+      if (aboutFrame && window.matchMedia("(pointer: fine)").matches) {
+        aboutFrame.addEventListener("pointermove", (event) => {
+          const rect = aboutFrame.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * 100;
+          const y = ((event.clientY - rect.top) / rect.height) * 100;
+          const tiltX = ((x - 50) / 50) * 7.2;
+          const tiltY = ((50 - y) / 50) * 7.2;
+          const shiftX = ((x - 50) / 50) * 10;
+          const shiftY = ((y - 50) / 50) * 8;
+          const photoX = ((50 - x) / 50) * 9;
+          const photoY = ((50 - y) / 50) * 7;
+          aboutFrame.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+          aboutFrame.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+          aboutFrame.style.setProperty("--img-shift-x", `${shiftX.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--img-shift-y", `${shiftY.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--photo-x", `${photoX.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--photo-y", `${photoY.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--img-x", `${x.toFixed(2)}%`);
+          aboutFrame.style.setProperty("--img-y", `${y.toFixed(2)}%`);
+        });
+        aboutFrame.addEventListener("pointerleave", () => {
+          aboutFrame.style.setProperty("--tilt-x", "0deg");
+          aboutFrame.style.setProperty("--tilt-y", "0deg");
+          aboutFrame.style.setProperty("--img-shift-x", "0px");
+          aboutFrame.style.setProperty("--img-shift-y", "0px");
+          aboutFrame.style.setProperty("--photo-x", "0px");
+          aboutFrame.style.setProperty("--photo-y", "0px");
+          aboutFrame.style.setProperty("--img-x", "50%");
+          aboutFrame.style.setProperty("--img-y", "50%");
+        });
+      }
+
+      typeTitle();
+      toggle?.addEventListener("click", () => setMenuState(true));
+      close?.addEventListener("click", () => setMenuState(false));
+      panelLinks.forEach((link) => link.addEventListener("click", () => setMenuState(false)));
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuState(false);
+      });
+    });
+  </script>
