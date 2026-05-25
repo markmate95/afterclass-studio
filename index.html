@@ -674,17 +674,38 @@
       align-items: center;
       min-height: 100svh;
       background:
-        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.9) 12rem, transparent 29rem),
-        linear-gradient(135deg, var(--acs-cream), #efe4d5);
+        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.88) 12rem, transparent 27rem),
+        radial-gradient(circle at 17% 22%, rgba(255, 250, 241, 0.9), transparent 31rem),
+        linear-gradient(135deg, var(--acs-paper), var(--acs-paper-2));
+    }
+
+    .acs-section-curve-reveal {
+      position: absolute;
+      inset: -8vh -8vw auto -8vw;
+      z-index: 2;
+      height: 122vh;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(255,255,255,0.98), rgba(255,250,241,0.94) 36%, rgba(244,239,230,0.96) 100%);
+      border-radius: 0 0 50% 50% / 0 0 16% 16%;
+      box-shadow: 0 3rem 8rem rgba(61, 46, 30, 0.08);
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 2400ms var(--acs-ease), opacity 1800ms ease;
+    }
+
+    .acs-about-scene.is-visible .acs-section-curve-reveal {
+      opacity: 0;
+      transform: translateY(-112%);
     }
 
     .acs-about-wrap {
       position: relative;
       z-index: 3;
       display: grid;
-      grid-template-columns: minmax(0, 1.04fr) minmax(20rem, 0.78fr);
+      grid-template-columns: minmax(0, 1.02fr) minmax(22rem, 0.82fr);
       align-items: center;
-      gap: clamp(2rem, 6vw, 6rem);
+      gap: clamp(2.4rem, 6.5vw, 6.6rem);
       width: min(100%, 1540px);
       margin: 0 auto;
       padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 4.2vw, 4.9rem);
@@ -692,10 +713,10 @@
 
     .acs-about-copy {
       position: relative;
-      max-width: 62rem;
+      max-width: 66rem;
       opacity: 0;
-      transform: translateY(1.6rem);
-      transition: opacity 1000ms var(--acs-ease), transform 1000ms var(--acs-ease);
+      transform: translateY(2.4rem) rotate(0.001deg);
+      transition: opacity 1600ms var(--acs-ease) 360ms, transform 1800ms var(--acs-ease) 360ms;
     }
 
     .acs-about-scene.is-visible .acs-about-copy {
@@ -717,28 +738,28 @@
       margin: 0;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(2.55rem, 5.25vw, 6rem);
+      font-size: clamp(2.15rem, 4.15vw, 4.85rem);
       font-weight: 400;
-      line-height: 0.98;
-      letter-spacing: -0.055em;
+      line-height: 1.12;
+      letter-spacing: -0.018em;
       text-wrap: balance;
     }
 
     .acs-about-copy p + p {
       margin-top: clamp(1.35rem, 2.4vw, 2.25rem);
-      color: rgba(17, 16, 14, 0.64);
-      font-size: clamp(1.65rem, 3.05vw, 3.25rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+      color: rgba(17, 16, 14, 0.66);
+      font-size: clamp(1.35rem, 2.35vw, 2.55rem);
+      line-height: 1.22;
+      letter-spacing: -0.006em;
     }
 
     .acs-about-media {
       position: relative;
-      min-height: clamp(28rem, 58vw, 43rem);
+      min-height: clamp(30rem, 58vw, 44rem);
       opacity: 0;
-      perspective: 1200px;
-      transform: translateY(1.8rem);
-      transition: opacity 1000ms var(--acs-ease) 160ms, transform 1000ms var(--acs-ease) 160ms;
+      perspective: 1400px;
+      transform: translateY(2.8rem) scale(0.96);
+      transition: opacity 1700ms var(--acs-ease) 620ms, transform 1900ms var(--acs-ease) 620ms;
     }
 
     .acs-about-scene.is-visible .acs-about-media {
@@ -754,8 +775,8 @@
       border-radius: clamp(1.4rem, 2vw, 2.4rem);
       background: rgba(255, 250, 241, 0.42);
       box-shadow: 0 42px 110px rgba(42, 31, 20, 0.14);
-      transform: rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
-      transition: transform 260ms ease-out;
+      transform: translate3d(var(--img-shift-x, 0px), var(--img-shift-y, 0px), 0) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
+      transition: transform 180ms ease-out, box-shadow 420ms ease;
       will-change: transform;
     }
 
@@ -786,14 +807,15 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: 50% 58%;
       filter: saturate(0.86) contrast(1.04) brightness(1.02);
-      transform: scale(1.04);
-      transition: transform 700ms var(--acs-ease), filter 700ms var(--acs-ease);
+      transform: scale(1.08) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
+      transition: transform 220ms ease-out, filter 700ms var(--acs-ease);
     }
 
     .acs-about-frame:hover img {
       filter: saturate(0.94) contrast(1.07) brightness(1.04);
-      transform: scale(1.085);
+      transform: scale(1.12) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
     }
 
     .acs-about-orbit {
@@ -945,12 +967,14 @@
       }
 
       .acs-about-copy p {
-        font-size: clamp(2.35rem, 12vw, 3.75rem);
-        line-height: 1;
+        font-size: clamp(2.05rem, 10vw, 3.25rem);
+        line-height: 1.12;
+        letter-spacing: -0.012em;
       }
 
       .acs-about-copy p + p {
-        font-size: clamp(1.5rem, 7vw, 2.2rem);
+        font-size: clamp(1.25rem, 5.8vw, 1.9rem);
+        line-height: 1.22;
       }
 
       .acs-about-media {
@@ -1098,6 +1122,7 @@
   <section class="acs-about-scene" id="bemutatkozas" aria-label="AfterClass Studio bemutatkozás">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-section-curve-reveal" aria-hidden="true"></div>
     <div class="acs-about-wrap">
       <div class="acs-about-copy">
         <p>Az AfterClass Studio tablófotózásra, szalagavató filmek és fényképek készítésére specializálódott kreatív csapat.</p>
@@ -1305,16 +1330,28 @@
           const rect = aboutFrame.getBoundingClientRect();
           const x = ((event.clientX - rect.left) / rect.width) * 100;
           const y = ((event.clientY - rect.top) / rect.height) * 100;
-          const tiltX = ((x - 50) / 50) * 4.5;
-          const tiltY = ((50 - y) / 50) * 4.5;
+          const tiltX = ((x - 50) / 50) * 7.2;
+          const tiltY = ((50 - y) / 50) * 7.2;
+          const shiftX = ((x - 50) / 50) * 10;
+          const shiftY = ((y - 50) / 50) * 8;
+          const photoX = ((50 - x) / 50) * 18;
+          const photoY = ((50 - y) / 50) * 14;
           aboutFrame.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
           aboutFrame.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+          aboutFrame.style.setProperty("--img-shift-x", `${shiftX.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--img-shift-y", `${shiftY.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--photo-x", `${photoX.toFixed(2)}px`);
+          aboutFrame.style.setProperty("--photo-y", `${photoY.toFixed(2)}px`);
           aboutFrame.style.setProperty("--img-x", `${x.toFixed(2)}%`);
           aboutFrame.style.setProperty("--img-y", `${y.toFixed(2)}%`);
         });
         aboutFrame.addEventListener("pointerleave", () => {
           aboutFrame.style.setProperty("--tilt-x", "0deg");
           aboutFrame.style.setProperty("--tilt-y", "0deg");
+          aboutFrame.style.setProperty("--img-shift-x", "0px");
+          aboutFrame.style.setProperty("--img-shift-y", "0px");
+          aboutFrame.style.setProperty("--photo-x", "0px");
+          aboutFrame.style.setProperty("--photo-y", "0px");
           aboutFrame.style.setProperty("--img-x", "50%");
           aboutFrame.style.setProperty("--img-y", "50%");
         });
