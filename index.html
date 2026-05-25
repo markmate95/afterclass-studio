@@ -740,25 +740,26 @@
       margin: 0;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(2.15rem, 4.15vw, 4.85rem);
+      font-size: clamp(2rem, 3.65vw, 4.2rem);
       font-weight: 400;
-      line-height: 1.12;
-      letter-spacing: -0.018em;
+      line-height: 1.13;
+      letter-spacing: -0.01em;
       text-wrap: balance;
     }
 
     .acs-about-copy p + p {
       margin-top: clamp(1.35rem, 2.4vw, 2.25rem);
       color: rgba(17, 16, 14, 0.66);
-      font-size: clamp(1.35rem, 2.35vw, 2.55rem);
-      line-height: 1.22;
-      letter-spacing: -0.006em;
+      font-size: clamp(1.2rem, 2vw, 2.12rem);
+      line-height: 1.26;
+      letter-spacing: 0;
     }
 
     .acs-about-media {
       position: relative;
-      min-height: clamp(21rem, 38vw, 31rem);
-      max-width: min(100%, 30rem);
+      width: min(100%, 28rem);
+      aspect-ratio: 0.78;
+      min-height: 0;
       justify-self: center;
       opacity: 0;
       filter: blur(16px);
@@ -976,8 +977,9 @@
       }
 
       .acs-about-media {
-        width: min(100%, 28rem);
-        min-height: 24rem;
+        width: min(100%, 25rem);
+        aspect-ratio: 0.78;
+        min-height: 0;
         justify-self: center;
       }
     }
@@ -988,18 +990,20 @@
       }
 
       .acs-about-copy p {
-        font-size: clamp(2.05rem, 10vw, 3.25rem);
-        line-height: 1.12;
-        letter-spacing: -0.012em;
+        font-size: clamp(1.9rem, 8.2vw, 2.95rem);
+        line-height: 1.13;
+        letter-spacing: -0.006em;
       }
 
       .acs-about-copy p + p {
-        font-size: clamp(1.25rem, 5.8vw, 1.9rem);
-        line-height: 1.22;
+        font-size: clamp(1.12rem, 5vw, 1.55rem);
+        line-height: 1.28;
       }
 
       .acs-about-media {
-        min-height: 20rem;
+        width: min(100%, 20rem);
+        aspect-ratio: 0.78;
+        min-height: 0;
       }
     }
 
@@ -1335,9 +1339,7 @@
       if ("IntersectionObserver" in window) {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-            }
+            entry.target.classList.toggle("is-visible", entry.isIntersecting);
           });
         }, { threshold: 0.32 });
         if (menuScene) observer.observe(menuScene);
