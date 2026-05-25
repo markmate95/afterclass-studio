@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AfterClass Studio - Hero v3</title>
+  <title>AfterClass Studio - Hero v4</title>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap");
 
@@ -121,9 +121,9 @@
       position: relative;
       z-index: 10;
       display: grid;
-      grid-template-columns: minmax(9rem, 13rem) 1fr auto;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 1rem;
+      gap: clamp(1rem, 2.2vw, 2rem);
       width: min(100%, 1540px);
       margin: 0 auto;
       padding: clamp(1.25rem, 2.4vw, 2.35rem) clamp(1rem, 4.2vw, 4.9rem);
@@ -132,10 +132,24 @@
       animation: acs-reveal-down 0.9s var(--acs-ease) 0.72s forwards;
     }
 
+    .acs-brand-cluster {
+      grid-column: 2;
+      justify-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(0.75rem, 1.2vw, 1.15rem);
+      padding: 0.36rem 0.48rem 0.36rem 0.36rem;
+      border: 1px solid rgba(17, 16, 14, 0.09);
+      border-radius: 999px;
+      background: rgba(255, 250, 241, 0.34);
+      box-shadow: 0 18px 46px rgba(36, 29, 22, 0.045);
+      backdrop-filter: blur(18px);
+    }
+
     .acs-logo-link {
       display: inline-flex;
       align-items: center;
-      width: min(12.8rem, 46vw);
+      width: min(12.8rem, 34vw);
       text-decoration: none;
     }
 
@@ -147,10 +161,11 @@
     }
 
     .acs-socials {
-      justify-self: end;
       display: flex;
       align-items: center;
-      gap: 0.38rem;
+      gap: 0.32rem;
+      padding-left: clamp(0.35rem, 0.8vw, 0.75rem);
+      border-left: 1px solid rgba(17, 16, 14, 0.12);
     }
 
     .acs-social-link {
@@ -183,6 +198,46 @@
       outline: none;
     }
 
+    .acs-header-nav {
+      grid-column: 3;
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 0.18rem;
+      max-width: min(46vw, 43rem);
+      padding: 0.34rem;
+      border: 1px solid var(--acs-line);
+      border-radius: 999px;
+      background: rgba(255, 250, 241, 0.42);
+      box-shadow: 0 16px 46px rgba(36, 29, 22, 0.045);
+      backdrop-filter: blur(18px);
+    }
+
+    .acs-header-nav-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.32rem;
+      padding: 0 0.78rem;
+      border-radius: 999px;
+      color: rgba(17, 16, 14, 0.68);
+      font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
+      font-size: clamp(0.95rem, 1.05vw, 1.18rem);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 220ms ease, background-color 220ms ease, transform 220ms ease;
+    }
+
+    .acs-header-nav-link:hover,
+    .acs-header-nav-link:focus-visible {
+      color: var(--acs-ink);
+      background: rgba(255, 250, 241, 0.74);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
     .acs-menu-toggle {
       display: none;
       justify-self: end;
@@ -203,9 +258,7 @@
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(18rem, 31rem);
-      align-items: center;
-      gap: clamp(2rem, 7vw, 6rem);
+      place-items: center;
       width: min(100%, 1540px);
       min-height: calc(100svh - 7.3rem);
       margin: 0 auto;
@@ -213,8 +266,11 @@
     }
 
     .acs-copy {
-      max-width: 68rem;
-      transform: translateY(clamp(0rem, 3vw, 2rem));
+      display: grid;
+      justify-items: center;
+      width: min(100%, 86rem);
+      text-align: center;
+      transform: translateY(clamp(0rem, 2vw, 1.4rem));
     }
 
     .acs-eyebrow {
@@ -232,7 +288,8 @@
       animation: acs-reveal-up 0.86s var(--acs-ease) 0.94s forwards;
     }
 
-    .acs-eyebrow::before {
+    .acs-eyebrow::before,
+    .acs-eyebrow::after {
       content: "";
       width: clamp(3rem, 8vw, 8.5rem);
       height: 1px;
@@ -241,39 +298,31 @@
     }
 
     .acs-title {
-      max-width: 11.9ch;
-      margin: 0;
+      max-width: 13.6ch;
+      min-height: 2.85em;
+      margin: 0 auto;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(3.9rem, 9vw, 10.8rem);
+      font-size: clamp(3.65rem, 8.5vw, 10.2rem);
       font-weight: 400;
-      line-height: 0.92;
-      letter-spacing: -0.062em;
+      line-height: 0.96;
+      letter-spacing: -0.058em;
       text-wrap: balance;
     }
 
-    .acs-title-line {
-      display: block;
-      overflow: hidden;
-      margin-bottom: -0.11em;
-      padding: 0.02em 0.04em 0.22em;
-      margin-left: -0.04em;
+    .acs-title.is-typing::after {
+      content: "";
+      display: inline-block;
+      width: 0.045em;
+      height: 0.72em;
+      margin-left: 0.04em;
+      background: currentColor;
+      transform: translateY(0.08em);
+      animation: acs-caret 0.85s steps(1) infinite;
     }
 
-    .acs-title-line span {
-      display: block;
-      transform: translateY(112%);
-      opacity: 0.02;
-      animation: acs-title-rise 1.08s var(--acs-ease) forwards;
-      animation-delay: calc(1.06s + var(--line) * 150ms);
-    }
-
-    .acs-side-nav {
-      align-self: center;
-      justify-self: stretch;
+    .acs-title.is-complete::after {
       opacity: 0;
-      transform: translateY(0.9rem);
-      animation: acs-reveal-up 0.9s var(--acs-ease) 1.24s forwards;
     }
 
     .acs-side-nav-list {
@@ -482,8 +531,9 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes acs-title-rise {
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes acs-caret {
+      0%, 45% { opacity: 1; }
+      46%, 100% { opacity: 0; }
     }
 
     @keyframes acs-arrow {
@@ -492,15 +542,11 @@
     }
 
     @media (max-width: 1120px) {
+      .acs-header { grid-template-columns: 1fr auto; }
+      .acs-brand-cluster { grid-column: 1; justify-self: start; }
+      .acs-header-nav { display: none; }
       .acs-socials { display: none; }
-      .acs-menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
-      .acs-hero-inner {
-        grid-template-columns: 1fr;
-        align-items: center;
-      }
-      .acs-side-nav {
-        display: none;
-      }
+      .acs-menu-toggle { grid-column: 2; display: inline-flex; align-items: center; justify-content: center; }
     }
 
     @media (max-width: 720px) {
@@ -515,10 +561,12 @@
         margin-bottom: 1rem;
         font-size: 0.62rem;
       }
-      .acs-eyebrow::before { width: 2.6rem; }
+      .acs-eyebrow::before,
+      .acs-eyebrow::after { width: 2.4rem; }
       .acs-title {
-        max-width: 10.5ch;
-        font-size: clamp(3.55rem, 17vw, 5.7rem);
+        max-width: 11.5ch;
+        min-height: 3.35em;
+        font-size: clamp(3.15rem, 15vw, 5.25rem);
       }
       .acs-bottom {
         left: 1rem;
@@ -555,18 +603,25 @@
     <div class="acs-sweep" aria-hidden="true"></div>
 
     <header class="acs-header" aria-label="AfterClass Studio navigáció">
-      <a class="acs-logo-link" href="#top" aria-label="AfterClass Studio nyitó szekció">
-        <img class="acs-logo" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/logo-scaled.png" alt="AfterClass Studio">
-      </a>
+      <div class="acs-brand-cluster">
+        <a class="acs-logo-link" href="#top" aria-label="AfterClass Studio nyitó szekció">
+          <img class="acs-logo" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/logo-scaled.png" alt="AfterClass Studio">
+        </a>
 
-      <span aria-hidden="true"></span>
-
-      <div class="acs-socials" aria-label="Közösségi média linkek">
-        <a class="acs-social-link" href="https://www.facebook.com/profile.php?id=61589863751838" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 8.1h2.1V4.5c-.4-.1-1.7-.2-3.2-.2-3.2 0-5.3 1.9-5.3 5.5v3.1H4.3V17h3.5v6.7h4.3V17h3.4l.5-4.1h-3.9v-2.7c0-1.2.3-2.1 2.1-2.1Z"/></svg></a>
-        <a class="acs-social-link" href="https://www.instagram.com/afterclassstudio.hu/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.7 2.8h8.6c2.7 0 4.9 2.2 4.9 4.9v8.6c0 2.7-2.2 4.9-4.9 4.9H7.7a4.9 4.9 0 0 1-4.9-4.9V7.7c0-2.7 2.2-4.9 4.9-4.9Zm0 1.8a3.1 3.1 0 0 0-3.1 3.1v8.6a3.1 3.1 0 0 0 3.1 3.1h8.6a3.1 3.1 0 0 0 3.1-3.1V7.7a3.1 3.1 0 0 0-3.1-3.1H7.7Zm4.3 3.3a4.1 4.1 0 1 1 0 8.2 4.1 4.1 0 0 1 0-8.2Zm0 1.8a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.4-2.7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg></a>
-        <a class="acs-social-link" href="https://www.tiktok.com/@afterclassstudio?lang=hu-HU" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3.1c.4 2.4 1.7 3.9 4 4.1v3.6a7.3 7.3 0 0 1-4-1.2v6.2c0 4-2.6 6.3-6.2 6.3-3.4 0-6-2.3-6-5.6 0-3.8 3.1-6 6.9-5.3v3.7c-1.8-.5-3.1.3-3.1 1.6 0 1.1.9 1.9 2.1 1.9 1.4 0 2.3-.8 2.3-2.8V3.1h4Z"/></svg></a>
-        <a class="acs-social-link" href="https://www.youtube.com/channel/UCAiZ4opXX-bSJhpgPOmiXYg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 7.1c-.2-1.4-1.1-2.4-2.5-2.6C16.8 4.1 12 4.1 12 4.1s-4.8 0-7 .4c-1.4.2-2.3 1.2-2.5 2.6-.4 2.2-.4 4.9-.4 4.9s0 2.8.4 4.9c.2 1.4 1.1 2.4 2.5 2.6 2.2.4 7 .4 7 .4s4.8 0 7-.4c1.4-.2 2.3-1.2 2.5-2.6.4-2.1.4-4.9.4-4.9s0-2.7-.4-4.9ZM10 14.9V9.1l5.2 2.9-5.2 2.9Z"/></svg></a>
+<div class="acs-socials" aria-label="Közösségi média linkek">
+          <a class="acs-social-link" href="https://www.facebook.com/profile.php?id=61589863751838" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 8.1h2.1V4.5c-.4-.1-1.7-.2-3.2-.2-3.2 0-5.3 1.9-5.3 5.5v3.1H4.3V17h3.5v6.7h4.3V17h3.4l.5-4.1h-3.9v-2.7c0-1.2.3-2.1 2.1-2.1Z"/></svg></a>
+          <a class="acs-social-link" href="https://www.instagram.com/afterclassstudio.hu/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.7 2.8h8.6c2.7 0 4.9 2.2 4.9 4.9v8.6c0 2.7-2.2 4.9-4.9 4.9H7.7a4.9 4.9 0 0 1-4.9-4.9V7.7c0-2.7 2.2-4.9 4.9-4.9Zm0 1.8a3.1 3.1 0 0 0-3.1 3.1v8.6a3.1 3.1 0 0 0 3.1 3.1h8.6a3.1 3.1 0 0 0 3.1-3.1V7.7a3.1 3.1 0 0 0-3.1-3.1H7.7Zm4.3 3.3a4.1 4.1 0 1 1 0 8.2 4.1 4.1 0 0 1 0-8.2Zm0 1.8a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.4-2.7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg></a>
+          <a class="acs-social-link" href="https://www.tiktok.com/@afterclassstudio?lang=hu-HU" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3.1c.4 2.4 1.7 3.9 4 4.1v3.6a7.3 7.3 0 0 1-4-1.2v6.2c0 4-2.6 6.3-6.2 6.3-3.4 0-6-2.3-6-5.6 0-3.8 3.1-6 6.9-5.3v3.7c-1.8-.5-3.1.3-3.1 1.6 0 1.1.9 1.9 2.1 1.9 1.4 0 2.3-.8 2.3-2.8V3.1h4Z"/></svg></a>
+          <a class="acs-social-link" href="https://www.youtube.com/channel/UCAiZ4opXX-bSJhpgPOmiXYg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 7.1c-.2-1.4-1.1-2.4-2.5-2.6C16.8 4.1 12 4.1 12 4.1s-4.8 0-7 .4c-1.4.2-2.3 1.2-2.5 2.6-.4 2.2-.4 4.9-.4 4.9s0 2.8.4 4.9c.2 1.4 1.1 2.4 2.5 2.6 2.2.4 7 .4 7 .4s4.8 0 7-.4c1.4-.2 2.3-1.2 2.5-2.6.4-2.1.4-4.9.4-4.9s0-2.7-.4-4.9ZM10 14.9V9.1l5.2 2.9-5.2 2.9Z"/></svg></a>
+        </div>
       </div>
+
+      <nav class="acs-header-nav" aria-label="Főmenü">
+        <a class="acs-header-nav-link" href="#tablofotozas">Tablófotózás</a>
+        <a class="acs-header-nav-link" href="#szalagavato">Szalagavató</a>
+        <a class="acs-header-nav-link" href="#selfiegep">Selfiegép</a>
+        <a class="acs-header-nav-link" href="#ajanlatkeres">Ajánlatkérés</a>
+      </nav>
 
       <button class="acs-menu-toggle" type="button" aria-expanded="false" aria-controls="acsMobilePanel">Menü</button>
     </header>
@@ -574,21 +629,8 @@
     <section class="acs-hero-inner" aria-label="AfterClass Studio hero">
       <div class="acs-copy">
         <p class="acs-eyebrow">AfterClass Studio</p>
-        <h1 class="acs-title" aria-label="Megörökítjük a végzős év legjobb pillanatait.">
-          <span class="acs-title-line"><span style="--line: 0">Megörökítjük</span></span>
-          <span class="acs-title-line"><span style="--line: 1">a végzős év</span></span>
-          <span class="acs-title-line"><span style="--line: 2">legjobb pillanatait.</span></span>
-        </h1>
+<h1 class="acs-title" data-text="Megörökítjük a végzős év legjobb pillanatait.">Megörökítjük a végzős év legjobb pillanatait.</h1>
       </div>
-
-      <nav class="acs-side-nav" aria-label="Főmenü">
-        <ul class="acs-side-nav-list">
-          <li><a class="acs-side-nav-link" href="#tablofotozas"><strong>Tablófotózás</strong><i aria-hidden="true"></i></a></li>
-          <li><a class="acs-side-nav-link" href="#szalagavato"><strong>Szalagavató fotó &amp; videó</strong><i aria-hidden="true"></i></a></li>
-          <li><a class="acs-side-nav-link" href="#selfiegep"><strong>Selfiegép bérlés</strong><i aria-hidden="true"></i></a></li>
-          <li><a class="acs-side-nav-link" href="#ajanlatkeres"><strong>Ajánlatkérés</strong><i aria-hidden="true"></i></a></li>
-        </ul>
-      </nav>
     </section>
 
     <div class="acs-bottom" aria-hidden="true">
@@ -627,6 +669,37 @@
       const panel = document.querySelector(".acs-mobile-panel");
       const close = document.querySelector(".acs-mobile-close");
       const panelLinks = document.querySelectorAll(".acs-mobile-panel a");
+      const title = document.querySelector(".acs-title");
+
+      const typeTitle = () => {
+        if (!title) return;
+        const fullText = title.dataset.text || title.textContent.trim();
+        const letters = Array.from(fullText);
+        const duration = 7600;
+        const startDelay = 900;
+        title.textContent = "";
+        title.classList.add("is-typing");
+
+        window.setTimeout(() => {
+          const start = performance.now();
+          const tick = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 2.4);
+            const count = Math.floor(eased * letters.length);
+            title.textContent = letters.slice(0, count).join("");
+            if (progress < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              title.textContent = fullText;
+              title.classList.remove("is-typing");
+              title.classList.add("is-complete");
+            }
+          };
+          requestAnimationFrame(tick);
+        }, startDelay);
+      };
+
+      typeTitle();
 
       const setMenuState = (isOpen) => {
         panel.classList.toggle("is-open", isOpen);
