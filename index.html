@@ -592,6 +592,229 @@
       padding-top: 1rem;
     }
 
+
+    .acs-menu-scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(1.2rem, 3vw, 2.4rem);
+      z-index: 5;
+      display: inline-grid;
+      place-items: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 1px solid var(--acs-line);
+      border-radius: 999px;
+      color: var(--acs-ink);
+      background: rgba(255, 250, 241, 0.42);
+      text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(0.8rem);
+      transition: opacity 850ms var(--acs-ease), transform 850ms var(--acs-ease), background-color 220ms ease;
+      backdrop-filter: blur(16px);
+    }
+
+    .acs-menu-scene.is-visible .acs-menu-scroll-cue {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+      transition-delay: 0.65s;
+    }
+
+    .acs-menu-scroll-cue::before {
+      content: "";
+      width: 0.46rem;
+      height: 0.46rem;
+      border-right: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+      transform: translateY(-0.12rem) rotate(45deg);
+      animation: acs-arrow 1.75s ease-in-out infinite;
+    }
+
+    .acs-menu-gate {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(4.25rem, 6vw, 5.7rem);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(17, 16, 14, 0.44);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(0.8rem);
+      transition: opacity 850ms var(--acs-ease), transform 850ms var(--acs-ease), color 260ms ease;
+      transition-delay: 0.55s;
+    }
+
+    .acs-menu-scene.is-visible .acs-menu-gate {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .acs-menu-gate::before,
+    .acs-menu-gate::after {
+      content: "";
+      width: 2.4rem;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.32;
+    }
+
+    .acs-menu-gate.is-armed {
+      color: rgba(17, 16, 14, 0.72);
+    }
+
+    .acs-about-scene {
+      display: grid;
+      align-items: center;
+      min-height: 100svh;
+      background:
+        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.9) 12rem, transparent 29rem),
+        linear-gradient(135deg, var(--acs-cream), #efe4d5);
+    }
+
+    .acs-about-wrap {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(20rem, 0.78fr);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 6rem);
+      width: min(100%, 1540px);
+      margin: 0 auto;
+      padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 4.2vw, 4.9rem);
+    }
+
+    .acs-about-copy {
+      position: relative;
+      max-width: 62rem;
+      opacity: 0;
+      transform: translateY(1.6rem);
+      transition: opacity 1000ms var(--acs-ease), transform 1000ms var(--acs-ease);
+    }
+
+    .acs-about-scene.is-visible .acs-about-copy {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .acs-about-copy::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -1.45rem;
+      width: min(14rem, 38vw);
+      height: 1px;
+      background: linear-gradient(90deg, rgba(17,16,14,0.35), transparent);
+    }
+
+    .acs-about-copy p {
+      margin: 0;
+      color: var(--acs-ink);
+      font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
+      font-size: clamp(2.55rem, 5.25vw, 6rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+    }
+
+    .acs-about-copy p + p {
+      margin-top: clamp(1.35rem, 2.4vw, 2.25rem);
+      color: rgba(17, 16, 14, 0.64);
+      font-size: clamp(1.65rem, 3.05vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .acs-about-media {
+      position: relative;
+      min-height: clamp(28rem, 58vw, 43rem);
+      opacity: 0;
+      perspective: 1200px;
+      transform: translateY(1.8rem);
+      transition: opacity 1000ms var(--acs-ease) 160ms, transform 1000ms var(--acs-ease) 160ms;
+    }
+
+    .acs-about-scene.is-visible .acs-about-media {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .acs-about-frame {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border: 1px solid rgba(17, 16, 14, 0.12);
+      border-radius: clamp(1.4rem, 2vw, 2.4rem);
+      background: rgba(255, 250, 241, 0.42);
+      box-shadow: 0 42px 110px rgba(42, 31, 20, 0.14);
+      transform: rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
+      transition: transform 260ms ease-out;
+      will-change: transform;
+    }
+
+    .acs-about-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.38), transparent 34%, transparent 62%, rgba(255,255,255,0.24)),
+        radial-gradient(circle at var(--img-x, 50%) var(--img-y, 50%), rgba(255, 248, 222, 0.34), transparent 19rem);
+      mix-blend-mode: screen;
+    }
+
+    .acs-about-frame::after {
+      content: "";
+      position: absolute;
+      inset: clamp(0.85rem, 1.5vw, 1.35rem);
+      z-index: 3;
+      border: 1px solid rgba(255, 250, 241, 0.46);
+      border-radius: clamp(0.95rem, 1.5vw, 1.65rem);
+      pointer-events: none;
+    }
+
+    .acs-about-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.86) contrast(1.04) brightness(1.02);
+      transform: scale(1.04);
+      transition: transform 700ms var(--acs-ease), filter 700ms var(--acs-ease);
+    }
+
+    .acs-about-frame:hover img {
+      filter: saturate(0.94) contrast(1.07) brightness(1.04);
+      transform: scale(1.085);
+    }
+
+    .acs-about-orbit {
+      position: absolute;
+      inset: auto -2rem -2.2rem auto;
+      width: clamp(9rem, 18vw, 17rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(190, 143, 78, 0.25);
+      border-radius: 999px;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .acs-about-orbit::before {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border: 1px solid rgba(190, 143, 78, 0.16);
+      border-radius: inherit;
+    }
+
     .acs-section-anchor,
     .acs-placeholder { scroll-margin-top: 2rem; }
 
