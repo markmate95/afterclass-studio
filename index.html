@@ -127,7 +127,7 @@
       position: relative;
       z-index: 2;
       display: grid;
-      align-items: center;
+      place-items: center;
       width: min(100%, 1540px);
       min-height: 100svh;
       margin: 0 auto;
@@ -135,15 +135,16 @@
     }
 
     .acs-title {
-      width: 100%;
+      width: min(100%, 14.8ch);
       min-height: 2.35em;
-      margin: 0;
+      margin: 0 auto;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(5.1rem, 13.1vw, 16.8rem);
+      font-size: clamp(5.1rem, 12.4vw, 15.8rem);
       font-weight: 400;
-      line-height: 0.84;
+      line-height: 0.86;
       letter-spacing: -0.071em;
+      text-align: center;
       text-wrap: balance;
     }
 
@@ -159,6 +160,56 @@
     }
 
     .acs-title.is-complete::after { opacity: 0; }
+
+
+    .acs-premium-line {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      width: min(94vw, 92rem);
+      height: min(62vh, 37rem);
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.985);
+      transition: opacity 700ms var(--acs-ease), transform 900ms var(--acs-ease);
+    }
+
+    .acs-page.is-ready .acs-premium-line {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .acs-premium-line svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .acs-premium-line path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      filter: drop-shadow(0 0 0.72rem rgba(198, 145, 86, 0.28));
+    }
+
+    .acs-premium-line .acs-line-main {
+      stroke: url(#acs-line-gradient);
+      stroke-width: 1.15;
+    }
+
+    .acs-premium-line .acs-line-glow {
+      stroke: rgba(255, 236, 202, 0.42);
+      stroke-width: 4.8;
+      filter: blur(3px);
+    }
+
+    .acs-page.is-ready .acs-premium-line path {
+      animation: acs-fire-line 2.65s var(--acs-ease) 0.18s forwards;
+    }
 
     .acs-scroll-cue {
       position: absolute;
@@ -185,6 +236,7 @@
       opacity: 1;
       pointer-events: auto;
       transform: translateX(-50%) translateY(0);
+      transition-delay: 1.35s;
     }
 
     .acs-scroll-cue::before {
@@ -219,6 +271,7 @@
     .acs-page.is-ready .acs-curve-flow {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+      transition-delay: 0.7s;
     }
 
     .acs-curve-flow span {
@@ -504,6 +557,13 @@
       46%, 100% { opacity: 0; }
     }
 
+    @keyframes acs-fire-line {
+      0% { stroke-dashoffset: 1; opacity: 0; }
+      8% { opacity: 1; }
+      78% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0.72; }
+    }
+
     @keyframes acs-arrow {
       0%, 100% { transform: translateY(-0.15rem) rotate(45deg); }
       50% { transform: translateY(0.16rem) rotate(45deg); }
@@ -513,9 +573,15 @@
       .acs-menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
 
       .acs-title {
+        width: min(100%, 11.8ch);
         min-height: 3.15em;
         font-size: clamp(3.55rem, 17.8vw, 6.8rem);
-        line-height: 0.86;
+        line-height: 0.88;
+      }
+
+      .acs-premium-line {
+        width: 118vw;
+        height: 48vh;
       }
 
       .acs-center-layout {
@@ -573,6 +639,22 @@
 
       <div class="acs-intro-content">
         <h1 class="acs-title" data-text="Megörökítjük a végzős év legjobb pillanatait.">Megörökítjük a végzős év legjobb pillanatait.</h1>
+      </div>
+
+      <div class="acs-premium-line" aria-hidden="true">
+        <svg viewBox="0 0 1200 520" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="acs-line-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#9f7752" stop-opacity="0" />
+              <stop offset="18%" stop-color="#c69562" stop-opacity="0.72" />
+              <stop offset="50%" stop-color="#f2d6a4" stop-opacity="0.95" />
+              <stop offset="82%" stop-color="#c28f5b" stop-opacity="0.72" />
+              <stop offset="100%" stop-color="#9f7752" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <path class="acs-line-glow" pathLength="1" d="M 118 462 C 156 232 297 80 505 74 C 734 67 930 171 982 315 C 1024 431 954 488 868 503" />
+          <path class="acs-line-main" pathLength="1" d="M 118 462 C 156 232 297 80 505 74 C 734 67 930 171 982 315 C 1024 431 954 488 868 503" />
+        </svg>
       </div>
 
       <div class="acs-curve-flow" aria-hidden="true">
