@@ -121,8 +121,8 @@
       position: relative;
       z-index: 10;
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
+      grid-template-columns: minmax(10rem, 16rem) 1fr minmax(18rem, 28rem);
+      align-items: start;
       gap: clamp(1rem, 2.2vw, 2rem);
       width: min(100%, 1540px);
       margin: 0 auto;
@@ -132,21 +132,9 @@
       animation: acs-reveal-down 0.9s var(--acs-ease) 0.72s forwards;
     }
 
-    .acs-brand-cluster {
-      grid-column: 2;
-      justify-self: center;
-      display: inline-flex;
-      align-items: center;
-      gap: clamp(0.75rem, 1.2vw, 1.15rem);
-      padding: 0.36rem 0.48rem 0.36rem 0.36rem;
-      border: 1px solid rgba(17, 16, 14, 0.09);
-      border-radius: 999px;
-      background: rgba(255, 250, 241, 0.34);
-      box-shadow: 0 18px 46px rgba(36, 29, 22, 0.045);
-      backdrop-filter: blur(18px);
-    }
-
     .acs-logo-link {
+      grid-column: 1;
+      justify-self: start;
       display: inline-flex;
       align-items: center;
       width: min(12.8rem, 34vw);
@@ -161,11 +149,17 @@
     }
 
     .acs-socials {
+      grid-column: 2;
+      justify-self: center;
       display: flex;
       align-items: center;
-      gap: 0.32rem;
-      padding-left: clamp(0.35rem, 0.8vw, 0.75rem);
-      border-left: 1px solid rgba(17, 16, 14, 0.12);
+      gap: 0.36rem;
+      padding: 0.32rem;
+      border: 1px solid rgba(17, 16, 14, 0.09);
+      border-radius: 999px;
+      background: rgba(255, 250, 241, 0.34);
+      box-shadow: 0 18px 46px rgba(36, 29, 22, 0.045);
+      backdrop-filter: blur(18px);
     }
 
     .acs-social-link {
@@ -201,40 +195,65 @@
     .acs-header-nav {
       grid-column: 3;
       justify-self: end;
-      display: flex;
-      align-items: center;
-      gap: 0.18rem;
-      max-width: min(46vw, 43rem);
-      padding: 0.34rem;
-      border: 1px solid var(--acs-line);
-      border-radius: 999px;
-      background: rgba(255, 250, 241, 0.42);
-      box-shadow: 0 16px 46px rgba(36, 29, 22, 0.045);
-      backdrop-filter: blur(18px);
+      display: grid;
+      width: min(100%, 26rem);
+      border-top: 1px solid var(--acs-line);
     }
 
     .acs-header-nav-link {
       position: relative;
-      display: inline-flex;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
-      min-height: 2.32rem;
-      padding: 0 0.78rem;
-      border-radius: 999px;
-      color: rgba(17, 16, 14, 0.68);
+      gap: 1rem;
+      min-height: clamp(2.55rem, 4vw, 3.35rem);
+      padding-right: 0.42rem;
+      overflow: visible;
+      border-bottom: 1px solid var(--acs-line);
+      color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(0.95rem, 1.05vw, 1.18rem);
-      line-height: 1;
-      letter-spacing: -0.025em;
+      font-size: clamp(1.35rem, 1.75vw, 2rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
       text-decoration: none;
       white-space: nowrap;
-      transition: color 220ms ease, background-color 220ms ease, transform 220ms ease;
+    }
+
+    .acs-header-nav-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(255, 250, 241, 0.42);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 520ms var(--acs-ease);
+    }
+
+    .acs-header-nav-link::after {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border-top: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      opacity: 0.48;
+      transform: translateX(-0.18rem) rotate(45deg);
+      transition: opacity 260ms ease, transform 420ms var(--acs-ease);
+    }
+
+    .acs-header-nav-link:hover::before,
+    .acs-header-nav-link:focus-visible::before {
+      transform: scaleX(1);
+    }
+
+    .acs-header-nav-link:hover::after,
+    .acs-header-nav-link:focus-visible::after {
+      opacity: 1;
+      transform: translateX(0.18rem) rotate(45deg);
     }
 
     .acs-header-nav-link:hover,
     .acs-header-nav-link:focus-visible {
-      color: var(--acs-ink);
-      background: rgba(255, 250, 241, 0.74);
-      transform: translateY(-1px);
       outline: none;
     }
 
@@ -258,55 +277,34 @@
       position: relative;
       z-index: 2;
       display: grid;
-      place-items: center;
+      align-items: end;
       width: min(100%, 1540px);
       min-height: calc(100svh - 7.3rem);
       margin: 0 auto;
-      padding: clamp(2.6rem, 7vw, 5.8rem) clamp(1rem, 4.2vw, 4.9rem) clamp(3rem, 6vw, 5rem);
+      padding: clamp(8rem, 16vw, 13.5rem) clamp(1rem, 4.2vw, 4.9rem) clamp(3rem, 6vw, 5rem);
     }
 
     .acs-copy {
       display: grid;
-      justify-items: center;
-      width: min(100%, 86rem);
-      text-align: center;
-      transform: translateY(clamp(0rem, 2vw, 1.4rem));
+      justify-items: start;
+      width: min(100%, 92rem);
+      text-align: left;
     }
 
     .acs-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.9rem;
-      margin: 0 0 clamp(1.1rem, 2.2vw, 1.85rem);
-      color: rgba(17, 16, 14, 0.54);
-      font-size: clamp(0.68rem, 0.82vw, 0.78rem);
-      font-weight: 700;
-      letter-spacing: 0.19em;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(0.9rem);
-      animation: acs-reveal-up 0.86s var(--acs-ease) 0.94s forwards;
-    }
-
-    .acs-eyebrow::before,
-    .acs-eyebrow::after {
-      content: "";
-      width: clamp(3rem, 8vw, 8.5rem);
-      height: 1px;
-      background: currentColor;
-      opacity: 0.38;
+      display: none;
     }
 
     .acs-title {
-      max-width: 13.6ch;
-      min-height: 2.85em;
-      margin: 0 auto;
+      max-width: 14.7ch;
+      min-height: 2.55em;
+      margin: 0;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(3.65rem, 8.5vw, 10.2rem);
+      font-size: clamp(4.7rem, 11.2vw, 14rem);
       font-weight: 400;
-      line-height: 0.96;
-      letter-spacing: -0.058em;
+      line-height: 0.9;
+      letter-spacing: -0.064em;
       text-wrap: balance;
     }
 
@@ -542,31 +540,26 @@
     }
 
     @media (max-width: 1120px) {
-      .acs-header { grid-template-columns: 1fr auto; }
-      .acs-brand-cluster { grid-column: 1; justify-self: start; }
+      .acs-header { grid-template-columns: minmax(8rem, 12rem) 1fr auto; align-items: center; }
+      .acs-logo-link { grid-column: 1; }
       .acs-header-nav { display: none; }
-      .acs-socials { display: none; }
-      .acs-menu-toggle { grid-column: 2; display: inline-flex; align-items: center; justify-content: center; }
+      .acs-socials { grid-column: 2; justify-self: center; }
+      .acs-menu-toggle { grid-column: 3; display: inline-flex; align-items: center; justify-content: center; }
     }
 
     @media (max-width: 720px) {
       .acs-hero::after { inset: 0.65rem; border-radius: 1.15rem; }
       .acs-header { padding: 1rem; }
-      .acs-logo-link { width: min(11.2rem, 49vw); }
+      .acs-logo-link { width: min(10.8rem, 42vw); }
+      .acs-socials { display: none; }
       .acs-hero-inner {
         min-height: calc(100svh - 5rem);
-        padding: 4.2rem 1rem 6rem;
+        padding: 8rem 1rem 5.6rem;
       }
-      .acs-eyebrow {
-        margin-bottom: 1rem;
-        font-size: 0.62rem;
-      }
-      .acs-eyebrow::before,
-      .acs-eyebrow::after { width: 2.4rem; }
       .acs-title {
-        max-width: 11.5ch;
-        min-height: 3.35em;
-        font-size: clamp(3.15rem, 15vw, 5.25rem);
+        max-width: 12.4ch;
+        min-height: 3.1em;
+        font-size: clamp(3.5rem, 17vw, 6.2rem);
       }
       .acs-bottom {
         left: 1rem;
@@ -603,17 +596,15 @@
     <div class="acs-sweep" aria-hidden="true"></div>
 
     <header class="acs-header" aria-label="AfterClass Studio navigáció">
-      <div class="acs-brand-cluster">
-        <a class="acs-logo-link" href="#top" aria-label="AfterClass Studio nyitó szekció">
-          <img class="acs-logo" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/logo-scaled.png" alt="AfterClass Studio">
-        </a>
+      <a class="acs-logo-link" href="#top" aria-label="AfterClass Studio nyitó szekció">
+        <img class="acs-logo" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/logo-scaled.png" alt="AfterClass Studio">
+      </a>
 
 <div class="acs-socials" aria-label="Közösségi média linkek">
-          <a class="acs-social-link" href="https://www.facebook.com/profile.php?id=61589863751838" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 8.1h2.1V4.5c-.4-.1-1.7-.2-3.2-.2-3.2 0-5.3 1.9-5.3 5.5v3.1H4.3V17h3.5v6.7h4.3V17h3.4l.5-4.1h-3.9v-2.7c0-1.2.3-2.1 2.1-2.1Z"/></svg></a>
-          <a class="acs-social-link" href="https://www.instagram.com/afterclassstudio.hu/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.7 2.8h8.6c2.7 0 4.9 2.2 4.9 4.9v8.6c0 2.7-2.2 4.9-4.9 4.9H7.7a4.9 4.9 0 0 1-4.9-4.9V7.7c0-2.7 2.2-4.9 4.9-4.9Zm0 1.8a3.1 3.1 0 0 0-3.1 3.1v8.6a3.1 3.1 0 0 0 3.1 3.1h8.6a3.1 3.1 0 0 0 3.1-3.1V7.7a3.1 3.1 0 0 0-3.1-3.1H7.7Zm4.3 3.3a4.1 4.1 0 1 1 0 8.2 4.1 4.1 0 0 1 0-8.2Zm0 1.8a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.4-2.7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg></a>
-          <a class="acs-social-link" href="https://www.tiktok.com/@afterclassstudio?lang=hu-HU" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3.1c.4 2.4 1.7 3.9 4 4.1v3.6a7.3 7.3 0 0 1-4-1.2v6.2c0 4-2.6 6.3-6.2 6.3-3.4 0-6-2.3-6-5.6 0-3.8 3.1-6 6.9-5.3v3.7c-1.8-.5-3.1.3-3.1 1.6 0 1.1.9 1.9 2.1 1.9 1.4 0 2.3-.8 2.3-2.8V3.1h4Z"/></svg></a>
-          <a class="acs-social-link" href="https://www.youtube.com/channel/UCAiZ4opXX-bSJhpgPOmiXYg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 7.1c-.2-1.4-1.1-2.4-2.5-2.6C16.8 4.1 12 4.1 12 4.1s-4.8 0-7 .4c-1.4.2-2.3 1.2-2.5 2.6-.4 2.2-.4 4.9-.4 4.9s0 2.8.4 4.9c.2 1.4 1.1 2.4 2.5 2.6 2.2.4 7 .4 7 .4s4.8 0 7-.4c1.4-.2 2.3-1.2 2.5-2.6.4-2.1.4-4.9.4-4.9s0-2.7-.4-4.9ZM10 14.9V9.1l5.2 2.9-5.2 2.9Z"/></svg></a>
-        </div>
+        <a class="acs-social-link" href="https://www.facebook.com/profile.php?id=61589863751838" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 8.1h2.1V4.5c-.4-.1-1.7-.2-3.2-.2-3.2 0-5.3 1.9-5.3 5.5v3.1H4.3V17h3.5v6.7h4.3V17h3.4l.5-4.1h-3.9v-2.7c0-1.2.3-2.1 2.1-2.1Z"/></svg></a>
+        <a class="acs-social-link" href="https://www.instagram.com/afterclassstudio.hu/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.7 2.8h8.6c2.7 0 4.9 2.2 4.9 4.9v8.6c0 2.7-2.2 4.9-4.9 4.9H7.7a4.9 4.9 0 0 1-4.9-4.9V7.7c0-2.7 2.2-4.9 4.9-4.9Zm0 1.8a3.1 3.1 0 0 0-3.1 3.1v8.6a3.1 3.1 0 0 0 3.1 3.1h8.6a3.1 3.1 0 0 0 3.1-3.1V7.7a3.1 3.1 0 0 0-3.1-3.1H7.7Zm4.3 3.3a4.1 4.1 0 1 1 0 8.2 4.1 4.1 0 0 1 0-8.2Zm0 1.8a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.4-2.7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg></a>
+        <a class="acs-social-link" href="https://www.tiktok.com/@afterclassstudio?lang=hu-HU" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3.1c.4 2.4 1.7 3.9 4 4.1v3.6a7.3 7.3 0 0 1-4-1.2v6.2c0 4-2.6 6.3-6.2 6.3-3.4 0-6-2.3-6-5.6 0-3.8 3.1-6 6.9-5.3v3.7c-1.8-.5-3.1.3-3.1 1.6 0 1.1.9 1.9 2.1 1.9 1.4 0 2.3-.8 2.3-2.8V3.1h4Z"/></svg></a>
+        <a class="acs-social-link" href="https://www.youtube.com/channel/UCAiZ4opXX-bSJhpgPOmiXYg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 7.1c-.2-1.4-1.1-2.4-2.5-2.6C16.8 4.1 12 4.1 12 4.1s-4.8 0-7 .4c-1.4.2-2.3 1.2-2.5 2.6-.4 2.2-.4 4.9-.4 4.9s0 2.8.4 4.9c.2 1.4 1.1 2.4 2.5 2.6 2.2.4 7 .4 7 .4s4.8 0 7-.4c1.4-.2 2.3-1.2 2.5-2.6.4-2.1.4-4.9.4-4.9s0-2.7-.4-4.9ZM10 14.9V9.1l5.2 2.9-5.2 2.9Z"/></svg></a>
       </div>
 
       <nav class="acs-header-nav" aria-label="Főmenü">
@@ -628,13 +619,11 @@
 
     <section class="acs-hero-inner" aria-label="AfterClass Studio hero">
       <div class="acs-copy">
-        <p class="acs-eyebrow">AfterClass Studio</p>
-<h1 class="acs-title" data-text="Megörökítjük a végzős év legjobb pillanatait.">Megörökítjük a végzős év legjobb pillanatait.</h1>
+        <h1 class="acs-title" data-text="Megörökítjük a végzős év legjobb pillanatait.">Megörökítjük a végzős év legjobb pillanatait.</h1>
       </div>
     </section>
 
     <div class="acs-bottom" aria-hidden="true">
-      <span>AfterClass Studio</span>
       <span class="acs-bottom-line"></span>
       <a class="acs-scroll" href="#tablofotozas" aria-label="Ugrás a következő szekcióra"></a>
     </div>
