@@ -703,9 +703,9 @@
       position: relative;
       z-index: 3;
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(22rem, 0.82fr);
+      grid-template-columns: minmax(0, 1.22fr) minmax(18rem, 0.58fr);
       align-items: center;
-      gap: clamp(2.4rem, 6.5vw, 6.6rem);
+      gap: clamp(2rem, 5.2vw, 5rem);
       width: min(100%, 1540px);
       margin: 0 auto;
       padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 4.2vw, 4.9rem);
@@ -713,15 +713,17 @@
 
     .acs-about-copy {
       position: relative;
-      max-width: 66rem;
+      max-width: 74rem;
       opacity: 0;
-      transform: translateY(2.4rem) rotate(0.001deg);
-      transition: opacity 1600ms var(--acs-ease) 360ms, transform 1800ms var(--acs-ease) 360ms;
+      filter: blur(14px);
+      transform: translateY(3.2rem) scale(0.985) rotate(0.001deg);
+      transition: opacity 1900ms var(--acs-ease) 420ms, filter 1800ms ease 420ms, transform 2100ms var(--acs-ease) 420ms;
     }
 
     .acs-about-scene.is-visible .acs-about-copy {
       opacity: 1;
-      transform: translateY(0);
+      filter: blur(0);
+      transform: translateY(0) scale(1);
     }
 
     .acs-about-copy::before {
@@ -755,16 +757,20 @@
 
     .acs-about-media {
       position: relative;
-      min-height: clamp(30rem, 58vw, 44rem);
+      min-height: clamp(21rem, 38vw, 31rem);
+      max-width: min(100%, 30rem);
+      justify-self: center;
       opacity: 0;
+      filter: blur(16px);
       perspective: 1400px;
-      transform: translateY(2.8rem) scale(0.96);
-      transition: opacity 1700ms var(--acs-ease) 620ms, transform 1900ms var(--acs-ease) 620ms;
+      transform: translateY(3.4rem) scale(0.92);
+      transition: opacity 2000ms var(--acs-ease) 760ms, filter 1850ms ease 760ms, transform 2200ms var(--acs-ease) 760ms;
     }
 
     .acs-about-scene.is-visible .acs-about-media {
       opacity: 1;
-      transform: translateY(0);
+      filter: blur(0);
+      transform: translateY(0) scale(1);
     }
 
     .acs-about-frame {
@@ -802,20 +808,35 @@
       pointer-events: none;
     }
 
-    .acs-about-frame img {
+    .acs-about-frame .acs-photo-backdrop {
+      position: absolute;
+      inset: -8%;
+      width: 116%;
+      height: 116%;
+      object-fit: cover;
+      opacity: 0.2;
+      filter: blur(22px) saturate(0.8);
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .acs-about-frame img.acs-about-photo {
+      position: relative;
+      z-index: 1;
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: 50% 58%;
+      object-fit: contain;
+      object-position: center center;
+      padding: clamp(0.45rem, 1vw, 0.8rem);
       filter: saturate(0.86) contrast(1.04) brightness(1.02);
-      transform: scale(1.08) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
+      transform: scale(1.01) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
       transition: transform 220ms ease-out, filter 700ms var(--acs-ease);
     }
 
-    .acs-about-frame:hover img {
+    .acs-about-frame:hover img.acs-about-photo {
       filter: saturate(0.94) contrast(1.07) brightness(1.04);
-      transform: scale(1.12) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
+      transform: scale(1.04) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
     }
 
     .acs-about-orbit {
@@ -955,9 +976,9 @@
       }
 
       .acs-about-media {
-        width: min(100%, 34rem);
-        min-height: 30rem;
-        justify-self: end;
+        width: min(100%, 28rem);
+        min-height: 24rem;
+        justify-self: center;
       }
     }
 
@@ -978,7 +999,7 @@
       }
 
       .acs-about-media {
-        min-height: 25rem;
+        min-height: 20rem;
       }
     }
 
@@ -1130,7 +1151,8 @@
       </div>
       <div class="acs-about-media">
         <div class="acs-about-frame">
-          <img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/szalagavato-fotozas.png" alt="Szalagavató fotózás">
+          <img class="acs-photo-backdrop" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/szalagavato-fotozas.png" alt="" aria-hidden="true">
+          <img class="acs-about-photo" src="https://afterclassstudio.hu/wp-content/uploads/2026/05/szalagavato-fotozas.png" alt="Szalagavató fotózás">
         </div>
         <span class="acs-about-orbit" aria-hidden="true"></span>
       </div>
@@ -1334,8 +1356,8 @@
           const tiltY = ((50 - y) / 50) * 7.2;
           const shiftX = ((x - 50) / 50) * 10;
           const shiftY = ((y - 50) / 50) * 8;
-          const photoX = ((50 - x) / 50) * 18;
-          const photoY = ((50 - y) / 50) * 14;
+          const photoX = ((50 - x) / 50) * 9;
+          const photoY = ((50 - y) / 50) * 7;
           aboutFrame.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
           aboutFrame.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
           aboutFrame.style.setProperty("--img-shift-x", `${shiftX.toFixed(2)}px`);
