@@ -255,6 +255,45 @@
       outline: none;
     }
 
+
+    .acs-scroll-gate {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(4.25rem, 6vw, 5.7rem);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(17, 16, 14, 0.44);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(0.8rem);
+      transition: opacity 850ms var(--acs-ease), transform 850ms var(--acs-ease), color 260ms ease;
+      transition-delay: 1.15s;
+    }
+
+    .acs-page.is-ready .acs-scroll-gate {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .acs-scroll-gate::before,
+    .acs-scroll-gate::after {
+      content: "";
+      width: 2.4rem;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.32;
+    }
+
+    .acs-scroll-gate.is-armed {
+      color: rgba(17, 16, 14, 0.72);
+    }
+
     .acs-curve-flow {
       position: absolute;
       left: 50%;
@@ -664,6 +703,7 @@
       </div>
 
       <a class="acs-scroll-cue" href="#acs-menu-scene" aria-label="Tovább a navigációhoz"></a>
+      <div class="acs-scroll-gate" aria-hidden="true">Scroll tovább</div>
     </section>
 
     <section class="acs-menu-scene" id="acs-menu-scene" aria-label="AfterClass Studio navigáció">
@@ -723,6 +763,7 @@
       const page = document.querySelector(".acs-page");
       const intro = document.querySelector(".acs-intro-scene");
       const menuScene = document.querySelector(".acs-menu-scene");
+      const scrollGate = document.querySelector(".acs-scroll-gate");
       const title = document.querySelector(".acs-title");
       const body = document.body;
       const toggle = document.querySelector(".acs-menu-toggle");
@@ -730,8 +771,13 @@
       const close = document.querySelector(".acs-mobile-close");
       const panelLinks = document.querySelectorAll(".acs-mobile-panel a");
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let isReady = false;
+      let gateProgress = 0;
+      let gateCooldown = false;
+      let touchStartY = 0;
 
       const setReady = () => {
+        isReady = true;
         if (page) page.classList.add("is-ready");
       };
 
@@ -776,6 +822,46 @@
           requestAnimationFrame(tick);
         }, startDelay);
       };
+
+
+      const goToMenuScene = () => {
+        menuScene?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+      };
+
+      const armScrollGate = () => {
+        gateProgress += 1;
+        scrollGate?.classList.add("is-armed");
+        window.setTimeout(() => scrollGate?.classList.remove("is-armed"), 520);
+      };
+
+      const handleGatedScroll = (event, deltaY) => {
+        if (!isReady || !intro || !menuScene) return;
+        const introBounds = intro.getBoundingClientRect();
+        const inIntro = introBounds.top >= -12 && introBounds.bottom > window.innerHeight * 0.58;
+        if (!inIntro || deltaY <= 0) return;
+
+        event.preventDefault();
+        if (gateCooldown) return;
+        gateCooldown = true;
+        window.setTimeout(() => { gateCooldown = false; }, 470);
+
+        if (gateProgress < 1) {
+          armScrollGate();
+          return;
+        }
+
+        gateProgress = 0;
+        goToMenuScene();
+      };
+
+      window.addEventListener("wheel", (event) => handleGatedScroll(event, event.deltaY), { passive: false });
+      window.addEventListener("touchstart", (event) => {
+        touchStartY = event.touches[0]?.clientY || 0;
+      }, { passive: true });
+      window.addEventListener("touchmove", (event) => {
+        const currentY = event.touches[0]?.clientY || 0;
+        handleGatedScroll(event, touchStartY - currentY);
+      }, { passive: false });
 
       const setMenuState = (isOpen) => {
         panel.classList.toggle("is-open", isOpen);
