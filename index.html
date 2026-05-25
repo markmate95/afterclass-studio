@@ -703,9 +703,9 @@
       position: relative;
       z-index: 3;
       display: grid;
-      grid-template-columns: minmax(0, 1.22fr) minmax(18rem, 0.58fr);
+      grid-template-columns: minmax(0, 1.12fr) minmax(22rem, 0.72fr);
       align-items: center;
-      gap: clamp(2rem, 5.2vw, 5rem);
+      gap: clamp(1.4rem, 3.6vw, 3.7rem);
       width: min(100%, 1540px);
       margin: 0 auto;
       padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 4.2vw, 4.9rem);
@@ -757,10 +757,10 @@
 
     .acs-about-media {
       position: relative;
-      width: min(100%, 28rem);
-      aspect-ratio: 0.78;
+      width: min(100%, 34rem);
+      aspect-ratio: 1.52;
       min-height: 0;
-      justify-self: center;
+      justify-self: start;
       opacity: 0;
       filter: blur(16px);
       perspective: 1400px;
@@ -829,7 +829,7 @@
       height: 100%;
       object-fit: contain;
       object-position: center center;
-      padding: clamp(0.45rem, 1vw, 0.8rem);
+      padding: clamp(0.28rem, 0.65vw, 0.55rem);
       filter: saturate(0.86) contrast(1.04) brightness(1.02);
       transform: scale(1.01) translate3d(var(--photo-x, 0px), var(--photo-y, 0px), 0);
       transition: transform 220ms ease-out, filter 700ms var(--acs-ease);
@@ -842,8 +842,8 @@
 
     .acs-about-orbit {
       position: absolute;
-      inset: auto -2rem -2.2rem auto;
-      width: clamp(9rem, 18vw, 17rem);
+      inset: auto -1.4rem -1.6rem auto;
+      width: clamp(7rem, 13vw, 12rem);
       aspect-ratio: 1;
       border: 1px solid rgba(190, 143, 78, 0.25);
       border-radius: 999px;
@@ -977,8 +977,8 @@
       }
 
       .acs-about-media {
-        width: min(100%, 25rem);
-        aspect-ratio: 0.78;
+        width: min(100%, 31rem);
+        aspect-ratio: 1.52;
         min-height: 0;
         justify-self: center;
       }
@@ -1001,8 +1001,8 @@
       }
 
       .acs-about-media {
-        width: min(100%, 20rem);
-        aspect-ratio: 0.78;
+        width: min(100%, 22rem);
+        aspect-ratio: 1.52;
         min-height: 0;
       }
     }
@@ -1334,6 +1334,7 @@
       if (window.matchMedia("(pointer: fine)").matches) {
         intro?.addEventListener("pointermove", moveSpotlight);
         menuScene?.addEventListener("pointermove", moveSpotlight);
+        aboutScene?.addEventListener("pointermove", moveSpotlight);
       }
 
       if ("IntersectionObserver" in window) {
