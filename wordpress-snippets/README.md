@@ -25,3 +25,8 @@ Fontos az új részeknél:
 - A Services snippet tartalmazza a legfrissebb közös CSS-t is, ezért a Services widget legyen a Tabló widget előtt.
 - A Tabló snippet végén van az új kiegészítő JavaScript a services typewriter, spotlight, heavy-scroll és tabló board animációkhoz.
 - A hamburger menü nincs használatban; a menü továbbra is a külön navigációs képernyőn jelenik meg.
+
+
+6. `06-szalagavato-widget.html` -> Szalagavató fotó & videó full-width container HTML widgetje.
+
+A Szalagavató snippet tartalmazza a saját CSS-t és JS-t is, mert új heavy-scroll kaput hoz létre a Tabló szekcióból a Szalagavató szekcióba, valamint kezeli a spotlight és kép-parallax interakciót.
