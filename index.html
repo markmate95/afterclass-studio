@@ -21,7 +21,7 @@
       --acs-x: 76%;
       --acs-y: 28%;
       --acs-scene-bg:
-        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.88) 12rem, transparent 27rem),
+        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 9rem, rgba(255, 250, 241, 0.92) 14rem, transparent 31rem),
         radial-gradient(circle at 17% 22%, rgba(255, 250, 241, 0.9), transparent 31rem),
         linear-gradient(135deg, var(--acs-paper), var(--acs-paper-2));
     }
@@ -110,8 +110,8 @@
 
     .acs-sweep {
       z-index: -1;
-      opacity: 0.46;
-      background: linear-gradient(102deg, transparent 0 40%, rgba(255, 255, 255, 0.98) 50%, transparent 61% 100%);
+      opacity: 0.56;
+      background: linear-gradient(102deg, transparent 0 39%, rgba(255, 255, 255, 1) 50%, transparent 62% 100%);
       transform: translateX(-55%);
       animation: acs-sweep 7.5s var(--acs-ease) infinite alternate;
     }
@@ -1171,77 +1171,6 @@
       filter: saturate(0.96) contrast(1.07) brightness(1.04);
     }
 
-    .acs-board-hammer {
-      position: absolute;
-      right: -1.6rem;
-      top: 18%;
-      z-index: 5;
-      width: 5.5rem;
-      height: 5.5rem;
-      opacity: 0;
-      pointer-events: none;
-      transform-origin: 70% 75%;
-    }
-
-    .acs-tablo-scene.is-visible .acs-board-hammer {
-      animation: acs-hammer-hit 1400ms var(--acs-ease) 1150ms forwards;
-    }
-
-    .acs-board-hammer::before {
-      content: "";
-      position: absolute;
-      left: 2.4rem;
-      top: 0.8rem;
-      width: 0.45rem;
-      height: 4.4rem;
-      border-radius: 999px;
-      background: linear-gradient(#d2aa58, #7b5524);
-      transform: rotate(38deg);
-    }
-
-    .acs-board-hammer::after {
-      content: "";
-      position: absolute;
-      left: 0.8rem;
-      top: 0.7rem;
-      width: 3.2rem;
-      height: 0.9rem;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #fff1a6, #b68432, #6d481d);
-      transform: rotate(38deg);
-      box-shadow: 0 0.7rem 1.5rem rgba(77, 51, 21, 0.18);
-    }
-
-    .acs-board-impact {
-      position: absolute;
-      right: -0.1rem;
-      top: 24%;
-      z-index: 4;
-      width: 4.5rem;
-      aspect-ratio: 1;
-      border: 1px solid rgba(17, 16, 14, 0.18);
-      border-radius: 999px;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .acs-board-impact::before,
-    .acs-board-impact::after {
-      content: "";
-      position: absolute;
-      inset: 18%;
-      border: 1px solid rgba(17, 16, 14, 0.12);
-      border-radius: inherit;
-    }
-
-    .acs-board-impact::after {
-      inset: 36%;
-    }
-
-    .acs-tablo-scene.is-visible .acs-board-impact {
-      animation: acs-impact-ring 1050ms ease-out 1450ms forwards;
-    }
-
     .acs-section-anchor,
     .acs-placeholder { scroll-margin-top: 2rem; }
 
@@ -1259,7 +1188,7 @@
 
     @keyframes acs-line-open { to { transform: scaleX(1); } }
 
-    @keyframes acs-sweep { to { transform: translateX(42%); opacity: 0.58; } }
+    @keyframes acs-sweep { to { transform: translateX(42%); opacity: 0.68; } }
 
     @keyframes acs-caret {
       0%, 45% { opacity: 1; }
@@ -1359,21 +1288,6 @@
       100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
     }
 
-    @keyframes acs-hammer-hit {
-      0% { opacity: 0; transform: rotate(-38deg) translate(1rem, -1rem); }
-      24% { opacity: 1; transform: rotate(-38deg) translate(0, 0); }
-      54% { opacity: 1; transform: rotate(16deg) translate(-0.3rem, 0.3rem); }
-      70% { opacity: 1; transform: rotate(-8deg) translate(0, 0); }
-      100% { opacity: 0; transform: rotate(26deg) translate(1.4rem, 0.8rem); }
-    }
-
-    @keyframes acs-impact-ring {
-      0% { opacity: 0; transform: scale(0.6); }
-      20% { opacity: 0.8; }
-      100% { opacity: 0; transform: scale(1.55); }
-    }
-
-
     @media (max-width: 1120px) {
       .acs-tablo-wrap {
         grid-template-columns: 1fr;
@@ -1417,10 +1331,6 @@
         width: min(100%, 23rem);
       }
 
-      .acs-board-hammer,
-      .acs-board-impact {
-        display: none;
-      }
     }
 
     @media (max-width: 980px) {
@@ -1630,7 +1540,6 @@
   <section class="acs-tablo-scene" id="tablofotozas" aria-label="Tablófotózás">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
-    <div class="acs-section-curve-reveal" aria-hidden="true"></div>
     <div class="acs-tablo-wrap">
       <div class="acs-tablo-copy">
         <div class="acs-tablo-kicker">SZOLGÁLTATÁSOK</div>
@@ -1657,8 +1566,6 @@
           <figure class="acs-board-photo" style="--i: 7"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok10.png" alt="Tablófotózás kép 8"></figure>
           <figure class="acs-board-photo" style="--i: 8"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotozas1.png" alt="Tablófotózás kép 9"></figure>
           <figure class="acs-board-photo" style="--i: 9"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok12.png" alt="Tablófotózás kép 10"></figure>
-          <span class="acs-board-hammer" aria-hidden="true"></span>
-          <span class="acs-board-impact" aria-hidden="true"></span>
         </div>
       </div>
     </div>
