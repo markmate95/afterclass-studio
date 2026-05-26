@@ -675,6 +675,84 @@
       color: rgba(17, 16, 14, 0.72);
     }
 
+    .acs-scene-scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(1.2rem, 3vw, 2.4rem);
+      z-index: 5;
+      display: inline-grid;
+      place-items: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 1px solid var(--acs-line);
+      border-radius: 999px;
+      color: var(--acs-ink);
+      background: rgba(255, 250, 241, 0.42);
+      text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(0.8rem);
+      transition: opacity 850ms var(--acs-ease), transform 850ms var(--acs-ease), background-color 220ms ease;
+      backdrop-filter: blur(16px);
+    }
+
+    .acs-about-scene.is-visible .acs-scene-scroll-cue,
+    .acs-services-title-scene.is-visible .acs-scene-scroll-cue {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+      transition-delay: 0.65s;
+    }
+
+    .acs-scene-scroll-cue::before {
+      content: "";
+      width: 0.46rem;
+      height: 0.46rem;
+      border-right: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+      transform: translateY(-0.12rem) rotate(45deg);
+      animation: acs-arrow 1.75s ease-in-out infinite;
+    }
+
+    .acs-scene-gate {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(4.25rem, 6vw, 5.7rem);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(17, 16, 14, 0.44);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(0.8rem);
+      transition: opacity 850ms var(--acs-ease), transform 850ms var(--acs-ease), color 260ms ease;
+      transition-delay: 0.55s;
+    }
+
+    .acs-about-scene.is-visible .acs-scene-gate,
+    .acs-services-title-scene.is-visible .acs-scene-gate {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .acs-scene-gate::before,
+    .acs-scene-gate::after {
+      content: "";
+      width: 2.4rem;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.32;
+    }
+
+    .acs-scene-gate.is-armed {
+      color: rgba(17, 16, 14, 0.72);
+    }
+
     .acs-about-scene {
       display: grid;
       align-items: center;
@@ -882,10 +960,10 @@
       margin: 0;
       color: var(--acs-ink);
       font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
-      font-size: clamp(5rem, 13vw, 16rem);
+      font-size: clamp(4.8rem, 12.5vw, 15.4rem);
       font-weight: 400;
-      line-height: 0.84;
-      letter-spacing: -0.07em;
+      line-height: 0.9;
+      letter-spacing: -0.028em;
       text-align: center;
       text-transform: uppercase;
       opacity: 0;
@@ -898,6 +976,21 @@
       opacity: 1;
       filter: blur(0);
       transform: translateY(0) scale(1);
+    }
+
+    .acs-services-title.is-typing::after {
+      content: "";
+      display: inline-block;
+      width: 0.045em;
+      height: 0.72em;
+      margin-left: 0.04em;
+      background: currentColor;
+      transform: translateY(0.08em);
+      animation: acs-caret 0.85s steps(1) infinite;
+    }
+
+    .acs-services-title.is-complete::after {
+      opacity: 0;
     }
 
     .acs-tablo-scene {
@@ -914,7 +1007,7 @@
       position: relative;
       z-index: 3;
       display: grid;
-      grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1fr);
+      grid-template-columns: minmax(18rem, 0.86fr) minmax(18rem, 0.72fr);
       align-items: center;
       gap: clamp(2rem, 5vw, 5rem);
       width: min(100%, 1540px);
@@ -989,8 +1082,10 @@
       padding: 0;
       list-style: none;
       color: rgba(17, 16, 14, 0.68);
-      font-size: clamp(0.96rem, 1.25vw, 1.12rem);
-      line-height: 1.35;
+      font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
+      font-size: clamp(1.18rem, 1.55vw, 1.48rem);
+      line-height: 1.25;
+      letter-spacing: -0.005em;
     }
 
     .acs-tablo-list li {
@@ -1027,9 +1122,9 @@
     .acs-photo-board {
       position: relative;
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: clamp(0.42rem, 0.8vw, 0.75rem);
-      width: min(100%, 50rem);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(0.5rem, 0.9vw, 0.8rem);
+      width: min(100%, 27rem);
       padding: clamp(0.8rem, 1.6vw, 1.4rem);
       border: 1px solid rgba(17, 16, 14, 0.12);
       border-radius: clamp(1.2rem, 2vw, 2.2rem);
@@ -1067,13 +1162,13 @@
       border-radius: clamp(0.55rem, 0.9vw, 0.9rem);
       background: rgba(255, 250, 241, 0.45);
       box-shadow: 0 0.8rem 2rem rgba(40, 30, 20, 0.08);
-      transform: translateY(1.2rem) scale(0.94);
+      transform: translateY(-4rem) scale(0.9);
       opacity: 0;
     }
 
     .acs-tablo-scene.is-visible .acs-board-photo {
-      animation: acs-photo-pin 950ms var(--acs-ease) forwards;
-      animation-delay: calc(620ms + var(--i) * 72ms);
+      animation: acs-photo-pin 1120ms var(--acs-ease) forwards;
+      animation-delay: calc(560ms + var(--i) * 105ms);
     }
 
     .acs-board-photo img {
@@ -1089,19 +1184,6 @@
     .acs-board-photo:hover img {
       transform: scale(1.11);
       filter: saturate(0.96) contrast(1.07) brightness(1.04);
-    }
-
-    .acs-board-photo::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0.45rem;
-      width: 0.42rem;
-      height: 0.42rem;
-      border-radius: 999px;
-      background: radial-gradient(circle, #fff5bf, #b98732 65%, #6b461c);
-      box-shadow: 0 0.18rem 0.5rem rgba(61, 42, 20, 0.25);
-      transform: translateX(-50%);
     }
 
     .acs-board-hammer {
@@ -1287,8 +1369,8 @@
 
 
     @keyframes acs-photo-pin {
-      0% { opacity: 0; transform: translateY(1.2rem) scale(0.94) rotate(-1.6deg); }
-      70% { opacity: 1; transform: translateY(-0.18rem) scale(1.015) rotate(0.4deg); }
+      0% { opacity: 0; transform: translateY(-4rem) scale(0.9) rotate(-2.6deg); }
+      64% { opacity: 1; transform: translateY(0.32rem) scale(1.018) rotate(0.5deg); }
       100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
     }
 
@@ -1317,9 +1399,9 @@
       }
 
       .acs-photo-board {
-        width: min(100%, 42rem);
+        width: min(100%, 27rem);
         justify-self: center;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -1347,7 +1429,7 @@
 
       .acs-photo-board {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        width: min(100%, 24rem);
+        width: min(100%, 23rem);
       }
 
       .acs-board-hammer,
@@ -1548,12 +1630,16 @@
         <span class="acs-about-orbit" aria-hidden="true"></span>
       </div>
     </div>
+    <a class="acs-scene-scroll-cue" href="#szolgaltatasok" aria-label="Tovább a szolgáltatásokhoz"></a>
+    <div class="acs-scene-gate acs-about-gate" aria-hidden="true">Scroll tovább</div>
   </section>
 
-  <section class="acs-services-title-scene" aria-label="Szolgáltatások">
+  <section class="acs-services-title-scene" id="szolgaltatasok" aria-label="Szolgáltatások">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
-    <h2 class="acs-services-title">SZOLGÁLTATÁSOK</h2>
+    <h2 class="acs-services-title" data-text="SZOLGÁLTATÁSOK">SZOLGÁLTATÁSOK</h2>
+    <a class="acs-scene-scroll-cue" href="#tablofotozas" aria-label="Tovább a tablófotózás szekcióhoz"></a>
+    <div class="acs-scene-gate acs-services-gate" aria-hidden="true">Scroll tovább</div>
   </section>
 
   <section class="acs-tablo-scene" id="tablofotozas" aria-label="Tablófotózás">
@@ -1624,10 +1710,13 @@
       const menuScene = document.querySelector(".acs-menu-scene");
       const aboutScene = document.querySelector(".acs-about-scene");
       const servicesScene = document.querySelector(".acs-services-title-scene");
+      const servicesTitle = document.querySelector(".acs-services-title");
       const tabloScene = document.querySelector(".acs-tablo-scene");
       const photoBoard = document.querySelector(".acs-photo-board");
       const scrollGate = document.querySelector(".acs-scroll-gate");
       const menuGate = document.querySelector(".acs-menu-gate");
+      const aboutGate = document.querySelector(".acs-about-gate");
+      const servicesGate = document.querySelector(".acs-services-gate");
       const aboutFrame = document.querySelector(".acs-about-frame");
       const title = document.querySelector(".acs-title");
       const body = document.body;
@@ -1639,6 +1728,9 @@
       let isReady = false;
       let introGateProgress = 0;
       let menuGateProgress = 0;
+      let aboutGateProgress = 0;
+      let servicesGateProgress = 0;
+      let servicesTypingId = 0;
       let gateCooldown = false;
       let touchStartY = 0;
 
@@ -1710,7 +1802,9 @@
 
         const inIntro = isSceneActive(intro, 0.58);
         const inMenu = isSceneActive(menuScene, 0.58);
-        if (!inIntro && !inMenu) return;
+        const inAbout = isSceneActive(aboutScene, 0.58);
+        const inServices = isSceneActive(servicesScene, 0.58);
+        if (!inIntro && !inMenu && !inAbout && !inServices) return;
 
         event.preventDefault();
         if (gateCooldown) return;
@@ -1736,6 +1830,28 @@
           }
           menuGateProgress = 0;
           scrollToScene(aboutScene);
+          return;
+        }
+
+        if (inAbout) {
+          if (aboutGateProgress < 1) {
+            aboutGateProgress += 1;
+            armGate(aboutGate);
+            return;
+          }
+          aboutGateProgress = 0;
+          scrollToScene(servicesScene);
+          return;
+        }
+
+        if (inServices) {
+          if (servicesGateProgress < 1) {
+            servicesGateProgress += 1;
+            armGate(servicesGate);
+            return;
+          }
+          servicesGateProgress = 0;
+          scrollToScene(tabloScene);
         }
       };
 
@@ -1747,6 +1863,42 @@
         const currentY = event.touches[0]?.clientY || 0;
         handleGatedScroll(event, touchStartY - currentY);
       }, { passive: false });
+
+      const typeServicesTitle = () => {
+        if (!servicesTitle) return;
+        servicesTypingId += 1;
+        const runId = servicesTypingId;
+        const fullText = servicesTitle.dataset.text || servicesTitle.textContent.trim();
+        const letters = Array.from(fullText);
+        const duration = 2600;
+        servicesTitle.textContent = "";
+        servicesTitle.classList.remove("is-complete");
+        servicesTitle.classList.add("is-typing");
+
+        if (prefersReducedMotion) {
+          servicesTitle.textContent = fullText;
+          servicesTitle.classList.remove("is-typing");
+          servicesTitle.classList.add("is-complete");
+          return;
+        }
+
+        const start = performance.now();
+        const tick = (now) => {
+          if (runId !== servicesTypingId) return;
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 2.4);
+          const count = Math.floor(eased * letters.length);
+          servicesTitle.textContent = letters.slice(0, count).join("");
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            servicesTitle.textContent = fullText;
+            servicesTitle.classList.remove("is-typing");
+            servicesTitle.classList.add("is-complete");
+          }
+        };
+        requestAnimationFrame(tick);
+      };
 
       const setMenuState = (isOpen) => {
         panel.classList.toggle("is-open", isOpen);
@@ -1776,6 +1928,15 @@
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             entry.target.classList.toggle("is-visible", entry.isIntersecting);
+            if (entry.target === servicesScene) {
+              if (entry.isIntersecting) {
+                typeServicesTitle();
+              } else if (servicesTitle) {
+                servicesTypingId += 1;
+                servicesTitle.textContent = servicesTitle.dataset.text || "SZOLGÁLTATÁSOK";
+                servicesTitle.classList.remove("is-typing", "is-complete");
+              }
+            }
           });
         }, { threshold: 0.32 });
         if (menuScene) observer.observe(menuScene);
@@ -1787,6 +1948,7 @@
         aboutScene?.classList.add("is-visible");
         servicesScene?.classList.add("is-visible");
         tabloScene?.classList.add("is-visible");
+        typeServicesTitle();
       }
 
       if (aboutFrame && window.matchMedia("(pointer: fine)").matches) {
