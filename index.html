@@ -1299,6 +1299,15 @@
         min-height: 2.75rem;
       }
 
+      .acs-tablo-wrap {
+        padding-inline: 1.1rem;
+      }
+
+      .acs-tablo-copy {
+        width: min(100%, 19.25rem);
+        max-width: calc(100vw - 2.2rem);
+      }
+
       .acs-photo-board {
         width: min(100%, 18rem);
       }
@@ -1337,6 +1346,15 @@
     }
 
     @media (max-width: 720px) {
+      .acs-tablo-wrap,
+      .acs-tablo-copy,
+      .acs-tablo-list,
+      .acs-tablo-list li,
+      .acs-board-stage,
+      .acs-photo-board {
+        box-sizing: border-box;
+      }
+
       .acs-services-title {
         width: min(100%, 92vw);
         font-size: clamp(2.45rem, 10.4vw, 4.4rem);
@@ -1345,12 +1363,17 @@
       }
 
       .acs-tablo-wrap {
-        padding: 4.4rem 0.85rem;
+        width: min(100%, 100vw);
+        padding: 4.4rem 1.35rem;
         gap: 1.65rem;
+        overflow: hidden;
       }
 
       .acs-tablo-copy {
-        max-width: 100%;
+        width: min(100%, 21.5rem);
+        max-width: calc(100vw - 2.7rem);
+        justify-self: center;
+        overflow-wrap: anywhere;
       }
 
       .acs-tablo-kicker {
@@ -1359,9 +1382,9 @@
       }
 
       .acs-tablo-title {
-        font-size: clamp(2.75rem, 12.4vw, 4.45rem);
-        line-height: 0.98;
-        letter-spacing: -0.008em;
+        font-size: clamp(2.35rem, 10.8vw, 3.8rem);
+        line-height: 1;
+        letter-spacing: -0.004em;
       }
 
       .acs-tablo-lead {
@@ -1375,8 +1398,15 @@
       }
 
       .acs-tablo-list {
-        font-size: clamp(0.98rem, 4.2vw, 1.12rem);
-        line-height: 1.35;
+        width: 100%;
+        font-size: clamp(0.9rem, 3.85vw, 1.04rem);
+        line-height: 1.38;
+        letter-spacing: 0.006em;
+      }
+
+      .acs-tablo-list li {
+        grid-template-columns: 0.8rem minmax(0, 1fr);
+        gap: 0.42rem;
       }
 
       .acs-photo-board {
