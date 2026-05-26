@@ -116,6 +116,17 @@
       animation: acs-sweep 7.5s var(--acs-ease) infinite alternate;
     }
 
+    .acs-spotlight {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.88;
+      background: radial-gradient(circle at var(--acs-x, 76%) var(--acs-y, 28%), rgba(255, 255, 255, 0.96) 0 7rem, rgba(255, 255, 255, 0.58) 12rem, rgba(255, 250, 241, 0.18) 19rem, transparent 31rem);
+      mix-blend-mode: screen;
+      transition: opacity 220ms ease;
+    }
+
     .acs-cinema-lines { z-index: 0; }
 
     .acs-cinema-lines::before,
@@ -1395,6 +1406,7 @@
       <div class="acs-noise" aria-hidden="true"></div>
       <div class="acs-cinema-lines" aria-hidden="true"></div>
       <div class="acs-sweep" aria-hidden="true"></div>
+      <div class="acs-spotlight" aria-hidden="true"></div>
 
       <div class="acs-intro-content">
         <h1 class="acs-title" data-text="Megörökítjük a végzős év legjobb pillanatait.">Megörökítjük a végzős év legjobb pillanatait.</h1>
@@ -1480,6 +1492,7 @@
     <section class="acs-menu-scene" id="acs-menu-scene" aria-label="AfterClass Studio navigáció">
       <div class="acs-noise" aria-hidden="true"></div>
       <div class="acs-sweep" aria-hidden="true"></div>
+      <div class="acs-spotlight" aria-hidden="true"></div>
 
       <div class="acs-menu-composition">
         <a class="acs-logo-link" href="#top" aria-label="AfterClass Studio nyitó szekció">
@@ -1511,6 +1524,7 @@
   <section class="acs-about-scene" id="bemutatkozas" aria-label="AfterClass Studio bemutatkozás">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-spotlight" aria-hidden="true"></div>
     <div class="acs-section-curve-reveal" aria-hidden="true"></div>
     <div class="acs-about-wrap">
       <div class="acs-about-copy">
@@ -1532,6 +1546,7 @@
   <section class="acs-services-title-scene" id="szolgaltatasok" aria-label="Szolgáltatások">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-spotlight" aria-hidden="true"></div>
     <h2 class="acs-services-title" data-text="SZOLGÁLTATÁSOK">SZOLGÁLTATÁSOK</h2>
     <a class="acs-scene-scroll-cue" href="#tablofotozas" aria-label="Tovább a tablófotózás szekcióhoz"></a>
     <div class="acs-scene-gate acs-services-gate" aria-hidden="true">Scroll tovább</div>
@@ -1540,6 +1555,7 @@
   <section class="acs-tablo-scene" id="tablofotozas" aria-label="Tablófotózás">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-spotlight" aria-hidden="true"></div>
     <div class="acs-tablo-wrap">
       <div class="acs-tablo-copy">
         <div class="acs-tablo-kicker">SZOLGÁLTATÁSOK</div>
