@@ -1,0 +1,243 @@
+<!-- AfterClass Studio - TABLÓFOTÓZÁS HTML widget
+Paste this into the Tabló Elementor HTML widget/container, directly after the Services widget.
+This snippet includes the add-on JavaScript for Services + Tabló interactions. -->
+<section class="acs-tablo-scene" id="tablofotozas" aria-label="Tablófotózás">
+    <div class="acs-noise" aria-hidden="true"></div>
+    <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-spotlight" aria-hidden="true"></div>
+    <div class="acs-tablo-wrap">
+      <div class="acs-tablo-copy">
+        <div class="acs-tablo-kicker">SZOLGÁLTATÁSOK</div>
+        <h2 class="acs-tablo-title">TABLÓFOTÓZÁS</h2>
+        <p class="acs-tablo-lead">Természetes portrék, egységes megjelenés és igényes végeredmény.</p>
+        <p class="acs-tablo-sub">Modern egyéni és tanári portrék természetes stílusban, elegáns hangulattal.</p>
+        <ul class="acs-tablo-list">
+          <li>helyszíni kitelepülés és fotózás az iskolában</li>
+          <li>egyéni és tanári portrék elkészítése</li>
+          <li>tablók összeállítása és szerkesztése</li>
+          <li>plusz kép rendelési lehetőség</li>
+          <li>pontos és megbízható határidők</li>
+        </ul>
+      </div>
+      <div class="acs-board-stage">
+        <div class="acs-photo-board">
+          <figure class="acs-board-photo" style="--i: 0"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok3.png" alt="Tablófotózás kép 1"></figure>
+          <figure class="acs-board-photo" style="--i: 1"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok6.png" alt="Tablófotózás kép 2"></figure>
+          <figure class="acs-board-photo" style="--i: 2"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok5.png" alt="Tablófotózás kép 3"></figure>
+          <figure class="acs-board-photo" style="--i: 3"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok7.png" alt="Tablófotózás kép 4"></figure>
+          <figure class="acs-board-photo" style="--i: 4"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok8.png" alt="Tablófotózás kép 5"></figure>
+          <figure class="acs-board-photo" style="--i: 5"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok14.png" alt="Tablófotózás kép 6"></figure>
+          <figure class="acs-board-photo" style="--i: 6"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok9.png" alt="Tablófotózás kép 7"></figure>
+          <figure class="acs-board-photo" style="--i: 7"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok10.png" alt="Tablófotózás kép 8"></figure>
+          <figure class="acs-board-photo" style="--i: 8"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotozas1.png" alt="Tablófotózás kép 9"></figure>
+          <figure class="acs-board-photo" style="--i: 9"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok12.png" alt="Tablófotózás kép 10"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.__acsServicesTabloInitialized) return;
+    window.__acsServicesTabloInitialized = true;
+
+    const intro = document.querySelector(".acs-intro-scene");
+    const menuScene = document.querySelector(".acs-menu-scene");
+    const aboutScene = document.querySelector(".acs-about-scene");
+    const servicesScene = document.querySelector(".acs-services-title-scene");
+    const servicesTitle = document.querySelector(".acs-services-title");
+    const tabloScene = document.querySelector(".acs-tablo-scene");
+    const photoBoard = document.querySelector(".acs-photo-board");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let aboutGateProgress = 0;
+    let servicesGateProgress = 0;
+    let gateCooldown = false;
+    let touchStartY = 0;
+    let servicesTypingId = 0;
+
+    const ensureSpotlight = (scene) => {
+      if (!scene || scene.querySelector(":scope > .acs-spotlight")) return;
+      const sweep = scene.querySelector(":scope > .acs-sweep");
+      const spotlight = document.createElement("div");
+      spotlight.className = "acs-spotlight";
+      spotlight.setAttribute("aria-hidden", "true");
+      if (sweep && sweep.parentNode === scene) {
+        sweep.insertAdjacentElement("afterend", spotlight);
+      } else {
+        scene.prepend(spotlight);
+      }
+    };
+
+    [intro, menuScene, aboutScene, servicesScene, tabloScene].forEach(ensureSpotlight);
+
+    const ensureAboutGate = () => {
+      if (!aboutScene || aboutScene.querySelector(".acs-about-gate")) return;
+      aboutScene.insertAdjacentHTML("beforeend", `
+        <a class="acs-scene-scroll-cue" href="#szolgaltatasok" aria-label="Tovább a szolgáltatásokhoz"></a>
+        <div class="acs-scene-gate acs-about-gate" aria-hidden="true">Scroll tovább</div>
+      `);
+    };
+
+    ensureAboutGate();
+    const aboutGate = document.querySelector(".acs-about-gate");
+    const servicesGate = document.querySelector(".acs-services-gate");
+
+    const scrollToScene = (target) => {
+      target?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    };
+
+    const armGate = (gate) => {
+      gate?.classList.add("is-armed");
+      window.setTimeout(() => gate?.classList.remove("is-armed"), 520);
+    };
+
+    const isSceneActive = (scene, threshold = 0.58) => {
+      if (!scene) return false;
+      const bounds = scene.getBoundingClientRect();
+      return bounds.top >= -12 && bounds.bottom > window.innerHeight * threshold;
+    };
+
+    const typeServicesTitle = () => {
+      if (!servicesTitle) return;
+      servicesTypingId += 1;
+      const runId = servicesTypingId;
+      const fullText = servicesTitle.dataset.text || servicesTitle.textContent.trim();
+      const letters = Array.from(fullText);
+      const duration = 2600;
+      servicesTitle.textContent = "";
+      servicesTitle.classList.remove("is-complete");
+      servicesTitle.classList.add("is-typing");
+
+      if (prefersReducedMotion) {
+        servicesTitle.textContent = fullText;
+        servicesTitle.classList.remove("is-typing");
+        servicesTitle.classList.add("is-complete");
+        return;
+      }
+
+      const start = performance.now();
+      const tick = (now) => {
+        if (runId !== servicesTypingId) return;
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 2.4);
+        const count = Math.floor(eased * letters.length);
+        servicesTitle.textContent = letters.slice(0, count).join("");
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          servicesTitle.textContent = fullText;
+          servicesTitle.classList.remove("is-typing");
+          servicesTitle.classList.add("is-complete");
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const handleGatedScroll = (event, deltaY) => {
+      if (deltaY <= 0) return;
+      const inAbout = isSceneActive(aboutScene, 0.58);
+      const inServices = isSceneActive(servicesScene, 0.58);
+      if (!inAbout && !inServices) return;
+
+      event.preventDefault();
+      if (gateCooldown) return;
+      gateCooldown = true;
+      window.setTimeout(() => { gateCooldown = false; }, 470);
+
+      if (inAbout) {
+        if (aboutGateProgress < 1) {
+          aboutGateProgress += 1;
+          armGate(aboutGate);
+          return;
+        }
+        aboutGateProgress = 0;
+        scrollToScene(servicesScene);
+        return;
+      }
+
+      if (inServices) {
+        if (servicesGateProgress < 1) {
+          servicesGateProgress += 1;
+          armGate(servicesGate);
+          return;
+        }
+        servicesGateProgress = 0;
+        scrollToScene(tabloScene);
+      }
+    };
+
+    const moveSpotlight = (event) => {
+      const target = event.currentTarget;
+      const rect = target.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      target.style.setProperty("--acs-x", `${x.toFixed(2)}%`);
+      target.style.setProperty("--acs-y", `${y.toFixed(2)}%`);
+    };
+
+    if (window.matchMedia("(pointer: fine)").matches) {
+      [intro, menuScene, aboutScene, servicesScene, tabloScene].forEach((scene) => {
+        scene?.addEventListener("pointermove", moveSpotlight);
+      });
+
+      photoBoard?.addEventListener("pointermove", (event) => {
+        const rect = photoBoard.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        const tiltX = ((x - 50) / 50) * 4.8;
+        const tiltY = ((50 - y) / 50) * 4.8;
+        const shiftX = ((x - 50) / 50) * 7;
+        const shiftY = ((y - 50) / 50) * 5;
+        photoBoard.style.setProperty("--board-tilt-x", `${tiltX.toFixed(2)}deg`);
+        photoBoard.style.setProperty("--board-tilt-y", `${tiltY.toFixed(2)}deg`);
+        photoBoard.style.setProperty("--board-x", `${shiftX.toFixed(2)}px`);
+        photoBoard.style.setProperty("--board-y", `${shiftY.toFixed(2)}px`);
+        photoBoard.style.setProperty("--board-light-x", `${x.toFixed(2)}%`);
+        photoBoard.style.setProperty("--board-light-y", `${y.toFixed(2)}%`);
+      });
+
+      photoBoard?.addEventListener("pointerleave", () => {
+        photoBoard.style.setProperty("--board-tilt-x", "0deg");
+        photoBoard.style.setProperty("--board-tilt-y", "0deg");
+        photoBoard.style.setProperty("--board-x", "0px");
+        photoBoard.style.setProperty("--board-y", "0px");
+        photoBoard.style.setProperty("--board-light-x", "50%");
+        photoBoard.style.setProperty("--board-light-y", "50%");
+      });
+    }
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+          if (entry.target === servicesScene) {
+            if (entry.isIntersecting) {
+              typeServicesTitle();
+            } else if (servicesTitle) {
+              servicesTypingId += 1;
+              servicesTitle.textContent = servicesTitle.dataset.text || "SZOLGÁLTATÁSOK";
+              servicesTitle.classList.remove("is-typing", "is-complete");
+            }
+          }
+        });
+      }, { threshold: 0.32 });
+
+      if (servicesScene) observer.observe(servicesScene);
+      if (tabloScene) observer.observe(tabloScene);
+    } else {
+      servicesScene?.classList.add("is-visible");
+      tabloScene?.classList.add("is-visible");
+      typeServicesTitle();
+    }
+
+    window.addEventListener("wheel", (event) => handleGatedScroll(event, event.deltaY), { passive: false });
+    window.addEventListener("touchstart", (event) => {
+      touchStartY = event.touches[0]?.clientY || 0;
+    }, { passive: true });
+    window.addEventListener("touchmove", (event) => {
+      const currentY = event.touches[0]?.clientY || 0;
+      handleGatedScroll(event, touchStartY - currentY);
+    }, { passive: false });
+  });
+</script>
+
