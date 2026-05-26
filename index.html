@@ -44,7 +44,9 @@
 
     .acs-intro-scene,
     .acs-menu-scene,
-    .acs-about-scene {
+    .acs-about-scene,
+    .acs-services-title-scene,
+    .acs-tablo-scene {
       position: relative;
       min-height: 100svh;
       overflow: hidden;
@@ -57,7 +59,9 @@
 
     .acs-intro-scene::before,
     .acs-menu-scene::before,
-    .acs-about-scene::before {
+    .acs-about-scene::before,
+    .acs-services-title-scene::before,
+    .acs-tablo-scene::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -72,7 +76,9 @@
 
     .acs-intro-scene::after,
     .acs-menu-scene::after,
-    .acs-about-scene::after {
+    .acs-about-scene::after,
+    .acs-services-title-scene::after,
+    .acs-tablo-scene::after {
       content: "";
       position: absolute;
       inset: 1rem;
@@ -859,6 +865,316 @@
       border-radius: inherit;
     }
 
+
+    .acs-services-title-scene {
+      display: grid;
+      place-items: center;
+      min-height: 100svh;
+      background:
+        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.88) 12rem, transparent 27rem),
+        radial-gradient(circle at 17% 22%, rgba(255, 250, 241, 0.9), transparent 31rem),
+        linear-gradient(135deg, var(--acs-paper), var(--acs-paper-2));
+    }
+
+    .acs-services-title {
+      position: relative;
+      z-index: 3;
+      margin: 0;
+      color: var(--acs-ink);
+      font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
+      font-size: clamp(5rem, 13vw, 16rem);
+      font-weight: 400;
+      line-height: 0.84;
+      letter-spacing: -0.07em;
+      text-align: center;
+      text-transform: uppercase;
+      opacity: 0;
+      filter: blur(18px);
+      transform: translateY(3rem) scale(0.96);
+      transition: opacity 1900ms var(--acs-ease), filter 1700ms ease, transform 2100ms var(--acs-ease);
+    }
+
+    .acs-services-title-scene.is-visible .acs-services-title {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
+
+    .acs-tablo-scene {
+      display: grid;
+      align-items: center;
+      min-height: 100svh;
+      background:
+        radial-gradient(circle at var(--acs-x) var(--acs-y), rgba(255, 255, 255, 1) 0 7rem, rgba(255, 250, 241, 0.88) 12rem, transparent 27rem),
+        radial-gradient(circle at 17% 22%, rgba(255, 250, 241, 0.9), transparent 31rem),
+        linear-gradient(135deg, var(--acs-paper), var(--acs-paper-2));
+    }
+
+    .acs-tablo-wrap {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 5vw, 5rem);
+      width: min(100%, 1540px);
+      margin: 0 auto;
+      padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 4.2vw, 4.9rem);
+    }
+
+    .acs-tablo-copy {
+      max-width: 44rem;
+      opacity: 0;
+      filter: blur(14px);
+      transform: translateY(2.6rem) scale(0.985);
+      transition: opacity 1900ms var(--acs-ease) 340ms, filter 1800ms ease 340ms, transform 2100ms var(--acs-ease) 340ms;
+    }
+
+    .acs-tablo-scene.is-visible .acs-tablo-copy {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
+
+    .acs-tablo-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: clamp(1rem, 2vw, 1.5rem);
+      color: rgba(17, 16, 14, 0.5);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .acs-tablo-kicker::before {
+      content: "";
+      width: clamp(3rem, 7vw, 7rem);
+      height: 1px;
+      background: currentColor;
+      opacity: 0.4;
+    }
+
+    .acs-tablo-title {
+      margin: 0;
+      font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
+      font-size: clamp(4rem, 9vw, 9rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.065em;
+    }
+
+    .acs-tablo-lead,
+    .acs-tablo-sub {
+      margin: clamp(1rem, 2vw, 1.5rem) 0 0;
+      font-family: "Instrument Serif", "Bodoni 72", Didot, Georgia, serif;
+      color: rgba(17, 16, 14, 0.7);
+      font-size: clamp(1.45rem, 2.4vw, 2.35rem);
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+    }
+
+    .acs-tablo-sub {
+      color: rgba(17, 16, 14, 0.58);
+      font-size: clamp(1.15rem, 1.7vw, 1.65rem);
+      line-height: 1.28;
+      max-width: 34rem;
+    }
+
+    .acs-tablo-list {
+      display: grid;
+      gap: 0.55rem;
+      margin: clamp(1.2rem, 2vw, 1.8rem) 0 0;
+      padding: 0;
+      list-style: none;
+      color: rgba(17, 16, 14, 0.68);
+      font-size: clamp(0.96rem, 1.25vw, 1.12rem);
+      line-height: 1.35;
+    }
+
+    .acs-tablo-list li {
+      display: grid;
+      grid-template-columns: 1.2rem 1fr;
+      gap: 0.5rem;
+      align-items: baseline;
+    }
+
+    .acs-tablo-list li::before {
+      content: "";
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: rgba(177, 128, 58, 0.72);
+      transform: translateY(-0.08rem);
+    }
+
+    .acs-board-stage {
+      position: relative;
+      opacity: 0;
+      filter: blur(16px);
+      transform: translateY(3.2rem) rotate(-0.6deg) scale(0.94);
+      transition: opacity 2000ms var(--acs-ease) 520ms, filter 1900ms ease 520ms, transform 2200ms var(--acs-ease) 520ms;
+      perspective: 1600px;
+    }
+
+    .acs-tablo-scene.is-visible .acs-board-stage {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) rotate(0) scale(1);
+    }
+
+    .acs-photo-board {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: clamp(0.42rem, 0.8vw, 0.75rem);
+      width: min(100%, 50rem);
+      padding: clamp(0.8rem, 1.6vw, 1.4rem);
+      border: 1px solid rgba(17, 16, 14, 0.12);
+      border-radius: clamp(1.2rem, 2vw, 2.2rem);
+      background: rgba(255, 250, 241, 0.52);
+      box-shadow: 0 42px 120px rgba(42, 31, 20, 0.14);
+      transform: translate3d(var(--board-x, 0px), var(--board-y, 0px), 0) rotateX(var(--board-tilt-y, 0deg)) rotateY(var(--board-tilt-x, 0deg));
+      transition: transform 180ms ease-out, box-shadow 420ms ease;
+      will-change: transform;
+    }
+
+    .acs-photo-board::before {
+      content: "";
+      position: absolute;
+      inset: clamp(0.5rem, 1vw, 0.9rem);
+      border: 1px solid rgba(255, 250, 241, 0.55);
+      border-radius: clamp(0.8rem, 1.4vw, 1.5rem);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .acs-photo-board::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--board-light-x, 50%) var(--board-light-y, 50%), rgba(255, 248, 222, 0.34), transparent 18rem);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .acs-board-photo {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 0.78;
+      border-radius: clamp(0.55rem, 0.9vw, 0.9rem);
+      background: rgba(255, 250, 241, 0.45);
+      box-shadow: 0 0.8rem 2rem rgba(40, 30, 20, 0.08);
+      transform: translateY(1.2rem) scale(0.94);
+      opacity: 0;
+    }
+
+    .acs-tablo-scene.is-visible .acs-board-photo {
+      animation: acs-photo-pin 950ms var(--acs-ease) forwards;
+      animation-delay: calc(620ms + var(--i) * 72ms);
+    }
+
+    .acs-board-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.86) contrast(1.04) brightness(1.02);
+      transform: scale(1.04);
+      transition: transform 700ms var(--acs-ease), filter 700ms var(--acs-ease);
+    }
+
+    .acs-board-photo:hover img {
+      transform: scale(1.11);
+      filter: saturate(0.96) contrast(1.07) brightness(1.04);
+    }
+
+    .acs-board-photo::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0.45rem;
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: radial-gradient(circle, #fff5bf, #b98732 65%, #6b461c);
+      box-shadow: 0 0.18rem 0.5rem rgba(61, 42, 20, 0.25);
+      transform: translateX(-50%);
+    }
+
+    .acs-board-hammer {
+      position: absolute;
+      right: -1.6rem;
+      top: 18%;
+      z-index: 5;
+      width: 5.5rem;
+      height: 5.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transform-origin: 70% 75%;
+    }
+
+    .acs-tablo-scene.is-visible .acs-board-hammer {
+      animation: acs-hammer-hit 1400ms var(--acs-ease) 1150ms forwards;
+    }
+
+    .acs-board-hammer::before {
+      content: "";
+      position: absolute;
+      left: 2.4rem;
+      top: 0.8rem;
+      width: 0.45rem;
+      height: 4.4rem;
+      border-radius: 999px;
+      background: linear-gradient(#d2aa58, #7b5524);
+      transform: rotate(38deg);
+    }
+
+    .acs-board-hammer::after {
+      content: "";
+      position: absolute;
+      left: 0.8rem;
+      top: 0.7rem;
+      width: 3.2rem;
+      height: 0.9rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #fff1a6, #b68432, #6d481d);
+      transform: rotate(38deg);
+      box-shadow: 0 0.7rem 1.5rem rgba(77, 51, 21, 0.18);
+    }
+
+    .acs-board-impact {
+      position: absolute;
+      right: -0.1rem;
+      top: 24%;
+      z-index: 4;
+      width: 4.5rem;
+      aspect-ratio: 1;
+      border: 1px solid rgba(185, 134, 54, 0.38);
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .acs-board-impact::before,
+    .acs-board-impact::after {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border: 1px solid rgba(185, 134, 54, 0.26);
+      border-radius: inherit;
+    }
+
+    .acs-board-impact::after {
+      inset: 36%;
+    }
+
+    .acs-tablo-scene.is-visible .acs-board-impact {
+      animation: acs-impact-ring 1050ms ease-out 1450ms forwards;
+    }
+
     .acs-section-anchor,
     .acs-placeholder { scroll-margin-top: 2rem; }
 
@@ -968,6 +1284,77 @@
       .acs-menu-composition { gap: 1.7rem; }
     }
 
+
+
+    @keyframes acs-photo-pin {
+      0% { opacity: 0; transform: translateY(1.2rem) scale(0.94) rotate(-1.6deg); }
+      70% { opacity: 1; transform: translateY(-0.18rem) scale(1.015) rotate(0.4deg); }
+      100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+    }
+
+    @keyframes acs-hammer-hit {
+      0% { opacity: 0; transform: rotate(-38deg) translate(1rem, -1rem); }
+      24% { opacity: 1; transform: rotate(-38deg) translate(0, 0); }
+      54% { opacity: 1; transform: rotate(16deg) translate(-0.3rem, 0.3rem); }
+      70% { opacity: 1; transform: rotate(-8deg) translate(0, 0); }
+      100% { opacity: 0; transform: rotate(26deg) translate(1.4rem, 0.8rem); }
+    }
+
+    @keyframes acs-impact-ring {
+      0% { opacity: 0; transform: scale(0.6); }
+      20% { opacity: 0.8; }
+      100% { opacity: 0; transform: scale(1.55); }
+    }
+
+
+    @media (max-width: 1120px) {
+      .acs-tablo-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .acs-tablo-copy {
+        max-width: 58rem;
+      }
+
+      .acs-photo-board {
+        width: min(100%, 42rem);
+        justify-self: center;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .acs-services-title {
+        font-size: clamp(4rem, 18vw, 6.6rem);
+      }
+
+      .acs-tablo-wrap {
+        padding: 5rem 1rem;
+        gap: 2rem;
+      }
+
+      .acs-tablo-title {
+        font-size: clamp(3.4rem, 17vw, 5.8rem);
+      }
+
+      .acs-tablo-lead {
+        font-size: clamp(1.35rem, 7vw, 2rem);
+      }
+
+      .acs-tablo-sub {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+      }
+
+      .acs-photo-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: min(100%, 24rem);
+      }
+
+      .acs-board-hammer,
+      .acs-board-impact {
+        display: none;
+      }
+    }
 
     @media (max-width: 980px) {
       .acs-about-wrap {
@@ -1163,7 +1550,50 @@
     </div>
   </section>
 
-  <section class="acs-placeholder" id="tablofotozas" aria-hidden="true">
+  <section class="acs-services-title-scene" aria-label="Szolgáltatások">
+    <div class="acs-noise" aria-hidden="true"></div>
+    <div class="acs-sweep" aria-hidden="true"></div>
+    <h2 class="acs-services-title">SZOLGÁLTATÁSOK</h2>
+  </section>
+
+  <section class="acs-tablo-scene" id="tablofotozas" aria-label="Tablófotózás">
+    <div class="acs-noise" aria-hidden="true"></div>
+    <div class="acs-sweep" aria-hidden="true"></div>
+    <div class="acs-section-curve-reveal" aria-hidden="true"></div>
+    <div class="acs-tablo-wrap">
+      <div class="acs-tablo-copy">
+        <div class="acs-tablo-kicker">SZOLGÁLTATÁSOK</div>
+        <h2 class="acs-tablo-title">TABLÓFOTÓZÁS</h2>
+        <p class="acs-tablo-lead">Természetes portrék, egységes megjelenés és igényes végeredmény.</p>
+        <p class="acs-tablo-sub">Modern egyéni és tanári portrék természetes stílusban, elegáns hangulattal.</p>
+        <ul class="acs-tablo-list">
+          <li>helyszíni kitelepülés és fotózás az iskolában</li>
+          <li>egyéni és tanári portrék elkészítése</li>
+          <li>tablók összeállítása és szerkesztése</li>
+          <li>plusz kép rendelési lehetőség</li>
+          <li>pontos és megbízható határidők</li>
+        </ul>
+      </div>
+      <div class="acs-board-stage">
+        <div class="acs-photo-board">
+          <figure class="acs-board-photo" style="--i: 0"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok3.png" alt="Tablófotózás kép 1"></figure>
+          <figure class="acs-board-photo" style="--i: 1"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok6.png" alt="Tablófotózás kép 2"></figure>
+          <figure class="acs-board-photo" style="--i: 2"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok5.png" alt="Tablófotózás kép 3"></figure>
+          <figure class="acs-board-photo" style="--i: 3"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok7.png" alt="Tablófotózás kép 4"></figure>
+          <figure class="acs-board-photo" style="--i: 4"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok8.png" alt="Tablófotózás kép 5"></figure>
+          <figure class="acs-board-photo" style="--i: 5"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok14.png" alt="Tablófotózás kép 6"></figure>
+          <figure class="acs-board-photo" style="--i: 6"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok9.png" alt="Tablófotózás kép 7"></figure>
+          <figure class="acs-board-photo" style="--i: 7"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok10.png" alt="Tablófotózás kép 8"></figure>
+          <figure class="acs-board-photo" style="--i: 8"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotozas1.png" alt="Tablófotózás kép 9"></figure>
+          <figure class="acs-board-photo" style="--i: 9"><img src="https://afterclassstudio.hu/wp-content/uploads/2026/05/tablo-fotok12.png" alt="Tablófotózás kép 10"></figure>
+          <span class="acs-board-hammer" aria-hidden="true"></span>
+          <span class="acs-board-impact" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="acs-placeholder" aria-hidden="true">
     <div id="szalagavato" class="acs-section-anchor"></div>
     <div id="selfiegep" class="acs-section-anchor"></div>
     <div id="ajanlatkeres" class="acs-section-anchor"></div>
@@ -1193,6 +1623,9 @@
       const intro = document.querySelector(".acs-intro-scene");
       const menuScene = document.querySelector(".acs-menu-scene");
       const aboutScene = document.querySelector(".acs-about-scene");
+      const servicesScene = document.querySelector(".acs-services-title-scene");
+      const tabloScene = document.querySelector(".acs-tablo-scene");
+      const photoBoard = document.querySelector(".acs-photo-board");
       const scrollGate = document.querySelector(".acs-scroll-gate");
       const menuGate = document.querySelector(".acs-menu-gate");
       const aboutFrame = document.querySelector(".acs-about-frame");
@@ -1335,6 +1768,8 @@
         intro?.addEventListener("pointermove", moveSpotlight);
         menuScene?.addEventListener("pointermove", moveSpotlight);
         aboutScene?.addEventListener("pointermove", moveSpotlight);
+        servicesScene?.addEventListener("pointermove", moveSpotlight);
+        tabloScene?.addEventListener("pointermove", moveSpotlight);
       }
 
       if ("IntersectionObserver" in window) {
@@ -1345,9 +1780,13 @@
         }, { threshold: 0.32 });
         if (menuScene) observer.observe(menuScene);
         if (aboutScene) observer.observe(aboutScene);
+        if (servicesScene) observer.observe(servicesScene);
+        if (tabloScene) observer.observe(tabloScene);
       } else {
         menuScene?.classList.add("is-visible");
         aboutScene?.classList.add("is-visible");
+        servicesScene?.classList.add("is-visible");
+        tabloScene?.classList.add("is-visible");
       }
 
       if (aboutFrame && window.matchMedia("(pointer: fine)").matches) {
@@ -1379,6 +1818,34 @@
           aboutFrame.style.setProperty("--photo-y", "0px");
           aboutFrame.style.setProperty("--img-x", "50%");
           aboutFrame.style.setProperty("--img-y", "50%");
+        });
+      }
+
+
+
+      if (photoBoard && window.matchMedia("(pointer: fine)").matches) {
+        photoBoard.addEventListener("pointermove", (event) => {
+          const rect = photoBoard.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * 100;
+          const y = ((event.clientY - rect.top) / rect.height) * 100;
+          const tiltX = ((x - 50) / 50) * 4.8;
+          const tiltY = ((50 - y) / 50) * 4.8;
+          const shiftX = ((x - 50) / 50) * 7;
+          const shiftY = ((y - 50) / 50) * 5;
+          photoBoard.style.setProperty("--board-tilt-x", `${tiltX.toFixed(2)}deg`);
+          photoBoard.style.setProperty("--board-tilt-y", `${tiltY.toFixed(2)}deg`);
+          photoBoard.style.setProperty("--board-x", `${shiftX.toFixed(2)}px`);
+          photoBoard.style.setProperty("--board-y", `${shiftY.toFixed(2)}px`);
+          photoBoard.style.setProperty("--board-light-x", `${x.toFixed(2)}%`);
+          photoBoard.style.setProperty("--board-light-y", `${y.toFixed(2)}%`);
+        });
+        photoBoard.addEventListener("pointerleave", () => {
+          photoBoard.style.setProperty("--board-tilt-x", "0deg");
+          photoBoard.style.setProperty("--board-tilt-y", "0deg");
+          photoBoard.style.setProperty("--board-x", "0px");
+          photoBoard.style.setProperty("--board-y", "0px");
+          photoBoard.style.setProperty("--board-light-x", "50%");
+          photoBoard.style.setProperty("--board-light-y", "50%");
         });
       }
 
