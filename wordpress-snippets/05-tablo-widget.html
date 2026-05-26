@@ -1,6 +1,68 @@
 <!-- AfterClass Studio - TABLÓFOTÓZÁS HTML widget
 Paste this into the Tabló Elementor HTML widget/container, directly after the Services widget.
 This snippet includes the add-on JavaScript for Services + Tabló interactions. -->
+
+<style>
+  /* Elementor/WordPress hardening for the tabló board. */
+  .acs-tablo-scene,
+  .acs-tablo-scene * {
+    box-sizing: border-box;
+  }
+
+  .acs-tablo-scene .acs-board-stage {
+    width: min(100%, 27rem) !important;
+    justify-self: center !important;
+  }
+
+  .acs-tablo-scene .acs-photo-board {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(0.5rem, 0.9vw, 0.8rem) !important;
+    row-gap: clamp(0.5rem, 0.9vw, 0.8rem) !important;
+    column-gap: clamp(0.5rem, 0.9vw, 0.8rem) !important;
+    width: min(100%, 27rem) !important;
+    max-width: 27rem !important;
+    margin: 0 auto !important;
+  }
+
+  .acs-tablo-scene .acs-board-photo {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    aspect-ratio: 0.78 !important;
+    overflow: hidden !important;
+  }
+
+  .acs-tablo-scene .acs-board-photo img {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    object-fit: cover !important;
+  }
+
+  @media (max-width: 720px) {
+    .acs-tablo-scene .acs-board-stage,
+    .acs-tablo-scene .acs-photo-board {
+      width: min(100%, 19.5rem) !important;
+      max-width: 19.5rem !important;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .acs-tablo-scene .acs-board-stage,
+    .acs-tablo-scene .acs-photo-board {
+      width: min(100%, 18rem) !important;
+      max-width: 18rem !important;
+    }
+  }
+</style>
+
+
 <section class="acs-tablo-scene" id="tablofotozas" aria-label="Tablófotózás">
     <div class="acs-noise" aria-hidden="true"></div>
     <div class="acs-sweep" aria-hidden="true"></div>
@@ -240,4 +302,5 @@ This snippet includes the add-on JavaScript for Services + Tabló interactions. 
     }, { passive: false });
   });
 </script>
+
 

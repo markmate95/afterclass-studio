@@ -1151,6 +1151,9 @@ This snippet includes the latest shared CSS updates needed for Services and Tabl
 
     .acs-board-photo {
       position: relative;
+      display: block;
+      width: 100%;
+      margin: 0;
       overflow: hidden;
       aspect-ratio: 0.78;
       border-radius: clamp(0.55rem, 0.9vw, 0.9rem);
@@ -1168,6 +1171,7 @@ This snippet includes the latest shared CSS updates needed for Services and Tabl
     .acs-board-photo img {
       display: block;
       width: 100%;
+      max-width: none;
       height: 100%;
       object-fit: cover;
       filter: saturate(0.86) contrast(1.04) brightness(1.02);
