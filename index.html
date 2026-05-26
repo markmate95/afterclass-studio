@@ -1126,7 +1126,7 @@
       position: relative;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0;
+      gap: clamp(0.5rem, 0.9vw, 0.8rem);
       width: min(100%, 27rem);
       padding: clamp(0.8rem, 1.6vw, 1.4rem);
       border: 1px solid rgba(17, 16, 14, 0.12);
@@ -1154,15 +1154,11 @@
 
     .acs-board-photo {
       position: relative;
-      display: block;
-      width: 100%;
-      margin: 0;
-      overflow: visible;
+      overflow: hidden;
       aspect-ratio: 0.78;
-      padding: clamp(0.26rem, 0.52vw, 0.42rem);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
+      border-radius: clamp(0.55rem, 0.9vw, 0.9rem);
+      background: rgba(255, 250, 241, 0.45);
+      box-shadow: 0 0.8rem 2rem rgba(40, 30, 20, 0.08);
       transform: translateY(-4rem) scale(0.9);
       opacity: 0;
     }
@@ -1175,11 +1171,8 @@
     .acs-board-photo img {
       display: block;
       width: 100%;
-      max-width: none;
       height: 100%;
       object-fit: cover;
-      border-radius: clamp(0.55rem, 0.9vw, 0.9rem);
-      box-shadow: 0 0.8rem 2rem rgba(40, 30, 20, 0.08);
       filter: saturate(0.86) contrast(1.04) brightness(1.02);
       transform: scale(1.04);
       transition: transform 700ms var(--acs-ease), filter 700ms var(--acs-ease);
