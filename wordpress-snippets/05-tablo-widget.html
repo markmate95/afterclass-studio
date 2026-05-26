@@ -3,7 +3,8 @@ Paste this into the Tabló Elementor HTML widget/container, directly after the S
 This snippet includes the add-on JavaScript for Services + Tabló interactions. -->
 
 <style>
-  /* Elementor/WordPress hardening for the tabló board. */
+  /* Elementor/WordPress hardening for the tabló board.
+     The spacing is applied INSIDE each photo cell, so Elementor cannot collapse the gaps. */
   .acs-tablo-scene,
   .acs-tablo-scene * {
     box-sizing: border-box;
@@ -17,9 +18,9 @@ This snippet includes the add-on JavaScript for Services + Tabló interactions. 
   .acs-tablo-scene .acs-photo-board {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: clamp(0.5rem, 0.9vw, 0.8rem) !important;
-    row-gap: clamp(0.5rem, 0.9vw, 0.8rem) !important;
-    column-gap: clamp(0.5rem, 0.9vw, 0.8rem) !important;
+    gap: 0 !important;
+    row-gap: 0 !important;
+    column-gap: 0 !important;
     width: min(100%, 27rem) !important;
     max-width: 27rem !important;
     margin: 0 auto !important;
@@ -30,9 +31,11 @@ This snippet includes the add-on JavaScript for Services + Tabló interactions. 
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: clamp(0.26rem, 0.52vw, 0.42rem) !important;
     aspect-ratio: 0.78 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
   .acs-tablo-scene .acs-board-photo img {
@@ -43,6 +46,8 @@ This snippet includes the add-on JavaScript for Services + Tabló interactions. 
     margin: 0 !important;
     padding: 0 !important;
     object-fit: cover !important;
+    border-radius: clamp(0.55rem, 0.9vw, 0.9rem) !important;
+    box-shadow: 0 0.8rem 2rem rgba(40, 30, 20, 0.08) !important;
   }
 
   @media (max-width: 720px) {
@@ -50,6 +55,10 @@ This snippet includes the add-on JavaScript for Services + Tabló interactions. 
     .acs-tablo-scene .acs-photo-board {
       width: min(100%, 19.5rem) !important;
       max-width: 19.5rem !important;
+    }
+
+    .acs-tablo-scene .acs-board-photo {
+      padding: 0.28rem !important;
     }
   }
 
@@ -302,5 +311,6 @@ This snippet includes the add-on JavaScript for Services + Tabló interactions. 
     }, { passive: false });
   });
 </script>
+
 
 
