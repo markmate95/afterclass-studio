@@ -30,3 +30,18 @@ Fontos az új részeknél:
 6. `06-szalagavato-widget.html` -> Szalagavató fotó & videó full-width container HTML widgetje.
 
 A Szalagavató snippet tartalmazza a saját CSS-t és JS-t is, mert új heavy-scroll kaput hoz létre a Tabló szekcióból a Szalagavató szekcióba, valamint kezeli a spotlight és kép-parallax interakciót.
+
+
+## Központi scroll vezérlő
+
+7. `07-scroll-controller-widget.html` -> Központi scroll vezérlő, utolsó HTML widget.
+
+**FONTOS:** Ezt a widgetet kell UTOLSÓNAK elhelyezni az Elementor oldalon, az összes szekció-widget után.
+
+Ez egyetlen központi karmesterként kezeli az ÖSSZES szekció közötti scroll-átmenetet:
+
+Intro → Menü → Bemutatkozás → Szolgáltatások → Tabló → Szalagavató
+
+Miért volt szükséges: korábban a scroll logika 3 külön widgetben volt (About, Tabló, Szalagavató), mindegyik saját `window.addEventListener("wheel", ...)` listenerrel és saját `gateCooldown` időzítővel. Emiatt egy egyetlen scroll-lendület egyszerre több szekciót is átugrott, mert a három külön metronóm nem tudott egymásról.
+
+A központi vezérlő **capture fázisban** elfogja a wheel/touch eventeket, tehát ha a régi widgetek még nincsenek frissítve, a controller akkor is felülírja a működésüket. De a tiszta megoldás az, hogy a 03, 05, 06 widgeteket is újra beilleszted a frissített verziókkal (amelyekből ki lettek véve a scroll listenerek).

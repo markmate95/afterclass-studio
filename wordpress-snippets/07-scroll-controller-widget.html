@@ -1,0 +1,132 @@
+<!-- AfterClass Studio - UNIFIED SCROLL CONTROLLER widget
+Paste this into the LAST Elementor HTML widget/container, after all section widgets.
+This is the single, centralized scroll controller — one conductor for the entire page.
+It replaces the per-widget scroll handlers using capture-phase event listeners. -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.__acsScrollControllerInitialized) return;
+    window.__acsScrollControllerInitialized = true;
+
+    const intro = document.querySelector(".acs-intro-scene");
+    const menuScene = document.querySelector(".acs-menu-scene");
+    const aboutScene = document.querySelector(".acs-about-scene");
+    const servicesScene = document.querySelector(".acs-services-title-scene");
+    const tabloScene = document.querySelector(".acs-tablo-scene");
+    const szalagScene = document.querySelector(".acs-szalag-scene");
+    const scrollGate = document.querySelector(".acs-scroll-gate");
+    const menuGate = document.querySelector(".acs-menu-gate");
+    const aboutGate = document.querySelector(".acs-about-gate");
+    const servicesGate = document.querySelector(".acs-services-gate");
+    const tabloGate = document.querySelector(".acs-tablo-gate");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let introGateProgress = 0;
+    let menuGateProgress = 0;
+    let aboutGateProgress = 0;
+    let servicesGateProgress = 0;
+    let tabloGateProgress = 0;
+    let gateCooldown = false;
+    let touchStartY = 0;
+
+    const scrollToScene = (target) => {
+      target?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    };
+
+    const armGate = (gate) => {
+      gate?.classList.add("is-armed");
+      window.setTimeout(() => gate?.classList.remove("is-armed"), 520);
+    };
+
+    const isSceneActive = (scene, threshold = 0.58) => {
+      if (!scene) return false;
+      const bounds = scene.getBoundingClientRect();
+      return bounds.top >= -12 && bounds.bottom > window.innerHeight * threshold;
+    };
+
+    const handleGatedScroll = (event, deltaY) => {
+      const isReady = document.body.classList.contains("acs-intro-ready");
+      if (!isReady || deltaY <= 0) return;
+
+      const inIntro = isSceneActive(intro, 0.58);
+      const inMenu = isSceneActive(menuScene, 0.58);
+      const inAbout = isSceneActive(aboutScene, 0.58);
+      const inServices = isSceneActive(servicesScene, 0.58);
+      const inTablo = isSceneActive(tabloScene, 0.58);
+      if (!inIntro && !inMenu && !inAbout && !inServices && !inTablo) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (gateCooldown) return;
+      gateCooldown = true;
+      window.setTimeout(() => { gateCooldown = false; }, 470);
+
+      if (inIntro) {
+        if (introGateProgress < 1) {
+          introGateProgress += 1;
+          armGate(scrollGate);
+          return;
+        }
+        introGateProgress = 0;
+        scrollToScene(menuScene);
+        return;
+      }
+
+      if (inMenu) {
+        if (menuGateProgress < 1) {
+          menuGateProgress += 1;
+          armGate(menuGate);
+          return;
+        }
+        menuGateProgress = 0;
+        scrollToScene(aboutScene);
+        return;
+      }
+
+      if (inAbout) {
+        if (aboutGateProgress < 1) {
+          aboutGateProgress += 1;
+          armGate(aboutGate);
+          return;
+        }
+        aboutGateProgress = 0;
+        scrollToScene(servicesScene);
+        return;
+      }
+
+      if (inServices) {
+        if (servicesGateProgress < 1) {
+          servicesGateProgress += 1;
+          armGate(servicesGate);
+          return;
+        }
+        servicesGateProgress = 0;
+        scrollToScene(tabloScene);
+        return;
+      }
+
+      if (inTablo) {
+        if (tabloGateProgress < 1) {
+          tabloGateProgress += 1;
+          armGate(tabloGate);
+          return;
+        }
+        tabloGateProgress = 0;
+        scrollToScene(szalagScene);
+      }
+    };
+
+    window.addEventListener("wheel", (event) => {
+      handleGatedScroll(event, event.deltaY);
+    }, { capture: true, passive: false });
+
+    window.addEventListener("touchstart", (event) => {
+      touchStartY = event.touches[0]?.clientY || 0;
+    }, { capture: true, passive: true });
+
+    window.addEventListener("touchmove", (event) => {
+      const currentY = event.touches[0]?.clientY || 0;
+      handleGatedScroll(event, touchStartY - currentY);
+    }, { capture: true, passive: false });
+  });
+</script>
